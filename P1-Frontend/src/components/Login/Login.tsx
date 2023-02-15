@@ -40,8 +40,8 @@ const Login = () => {
     );
   };
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
+    <div className="">
+      <div className="card_card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
@@ -63,7 +63,7 @@ const Login = () => {
               <ErrorMessage
                 name="username"
                 component="div"
-                className="alert alert-danger"
+                className="alert_alert-danger"
               />
             </div>
 
@@ -73,26 +73,24 @@ const Login = () => {
               <ErrorMessage
                 name="password"
                 component="div"
-                className="alert alert-danger"
+                className="alert_lert-danger"
               />
             </div>
 
             <div className="form-group">
               <button
                 type="submit"
-                className="btn btn-primary btn-block"
+                className="btn_btn-primary"
                 disabled={loading}
               >
-                {loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
+                {loading && <span className="spinner-border"></span>}
                 <span>Login</span>
               </button>
             </div>
 
             {message && (
               <div className="form-group">
-                <div className="alert alert-danger" role="alert">
+                <div className="alert_lert-danger" role="alert">
                   {message}
                 </div>
               </div>
