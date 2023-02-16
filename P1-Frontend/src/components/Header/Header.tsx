@@ -1,22 +1,15 @@
+import NavBar from "../NavBar/NavBar";
 import "./Header.css";
 import disney from "./Disney.png";
 
 function Header() {
-  return <>
-    <header>
-      <h2>The Surpremes</h2>
-
-      <input type="checkbox" id="toggle" className="toggle" />
-      <div className="burger" htmlFor="toggle"><div></div></div>
-      
-      <nav>
-        <ul>
-          <li>home</li>
-          <li>About</li>
-          <li>Sign in</li>
-        </ul>
-      </nav>
-    </header>
-  </>;
+  return (
+    <div className="red-text">
+      This is the page header
+      <div>
+        <NavBar />
+      </div>
+    </div>
+  );
 }
 export default Header;

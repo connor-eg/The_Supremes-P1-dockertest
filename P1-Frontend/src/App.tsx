@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 const authRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Register />,
+    element: <Register />, //home route
     children: [
       {
         path: "/register",
