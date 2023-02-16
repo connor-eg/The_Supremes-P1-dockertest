@@ -4,8 +4,11 @@ import disney from "./Disney.png";
 function Header() {
   return <>
     <header>
-      <img className="logod" src={disney} alt="disney" />
+      <h2>The Surpremes</h2>
 
+      <input type="checkbox" id="toggle" className="toggle" />
+      <div className="burger" htmlFor="toggle"><div></div></div>
+      
       <nav>
         <ul>
           <li>home</li>
