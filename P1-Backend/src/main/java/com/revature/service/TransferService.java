@@ -21,4 +21,7 @@ public class TransferService {
         return transferRepository.findAll();
     }
 
+    public void addNewTransfer(Transfer transfer) {
+		transferRepository.save(transfer);
+    }
 }
