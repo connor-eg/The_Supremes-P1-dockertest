@@ -1,3 +1,165 @@
-.red-text {
-  color: red;
+
+header {
+  background-color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+}
+header h2 {
+  color: white;
+  font-size: 45px;
+  margin: 10px 0 0 2.5%;
+}
+
+.toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 5%;
+  z-index: 2;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+}
+
+.burger {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  margin-top: 7px;
+  margin-right: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.burger > div {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+.burger > div:before,
+.burger > div:after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  width: 100%;
+  height: 3px;
+  background: inherit;
+}
+
+.burger > div:after {
+  top: 10px;
+}
+
+/* toggle animate */
+.toggle:checked + .burger > div {
+  transform: rotate(135deg);
+}
+/* turn toggle into a X */
+.toggle:checked + .burger > div:before, 
+.toggle:checked + .burger > div:after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.toggle:checked ~ nav {
+  transform: translatex(0);
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  transform: translateX(100%);
+  transition: transform .5s ease-in-out;
+  background-color: black;
+  width: 50%;
+}
+
+nav ul {
+  margin-top: 90px;
+  
+}
+
+nav ul li {
+    
+  color: white;
+  text-decoration: none;
+  list-style-type: none;
+  padding-bottom: 20px;
+  padding-left: 10%;
+  font-size: 20px;
+  
+}
+
+nav ul li a {
+  text-decoration: inherit;
+  color: inherit;
+  
+}
+
+@media only screen and (min-width: 1025px) {
+
+  .toggle {
+      display: none;
+  }
+
+  .burger {
+      display: none;
+  }
+
+  nav {
+      width: unset;
+      height: unset;
+      margin-right: 3%;
+      background-color: unset;
+      transform: translateX(0);
+  }
+
+  nav ul {
+      display: flex;
+      width: 600px;
+      margin-top: 25px;
+      justify-content: right;
+  }
+
+  nav ul li {
+      padding: 0;
+      margin-right: 5%;
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+
+
+
+  nav {
+      margin-right: 7.7%;
+  }
+}
+
+@media only screen and (min-width: 2170px) {
+
+
+
+  nav {
+      margin-right: 12.5%;
+  }
+
 }

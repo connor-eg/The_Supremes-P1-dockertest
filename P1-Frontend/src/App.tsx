@@ -1,34 +1,58 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import Header from "./components/Header/Header";
+import Register from "./components/Register/Register";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+]);
+
+const authRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register />, //home route
+    children: [
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [authenticated, setAuthenticated] = useState(false);
+  /*
+  (make global state )
+  Check local storage to see if user instance exists,
+  if it does it would load login
+  else, load register
+  */
+  const user = {
+    userID: "",
+    email: "",
+    jwt: "",
+  };
 
   return (
     <div className="App">
       <Header />
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RouterProvider router={authenticated ? router : authRouter} />
     </div>
   );
 }
