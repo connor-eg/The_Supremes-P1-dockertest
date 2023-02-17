@@ -15,7 +15,7 @@ import Profile from "./components/Profile/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Register />,
   },
   {
     path: "/profile",

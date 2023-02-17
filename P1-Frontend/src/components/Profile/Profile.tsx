@@ -1,230 +1,236 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
 export default function Profile() {
-  const user = {
-    name: "Tom Cook",
-    email: "tom@example.com",
-    imageUrl:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  };
-  const navigation = [
-    { name: "Dashboard", href: "#", current: true },
-    { name: "Team", href: "#", current: false },
-    { name: "Projects", href: "#", current: false },
-    { name: "Calendar", href: "#", current: false },
-  ];
-  const userNavigation = [
-    { name: "Your Profile", href: "#" },
-    { name: "Settings", href: "#" },
-    { name: "Sign out", href: "#" },
-  ];
-
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-  }
-
   return (
     <div>
-      <>
-        {/*
-        This example requires updating your template:
+      {/* <!-- component --> */}
+      <section className="py-40 bg-gray-100  bg-opacity-50 h-screen">
+        <div className="mx-auto container max-w-2xl md:w-3/4 shadow-md">
+          <div className="bg-gray-100 p-4 border-t-2 bg-opacity-5 border-indigo-400 rounded-t">
+            <div className="max-w-sm mx-auto md:w-full md:mx-0">
+              <div className="inline-flex items-center space-x-4">
+                <img
+                  className="w-10 h-10 object-cover rounded-full"
+                  alt="User avatar"
+                  src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"
+                />
 
-        ```
-        <html class="h-full">
-        <body class="h-full">
-        ```
-      */}
-        <div className="min-h-full">
-          <Disclosure as="nav" className="border-b border-gray-200 bg-white">
-            {({ open }) => (
-              <>
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <div className="flex h-16 justify-between">
-                    <div className="flex">
-                      <div className="flex flex-shrink-0 items-center">
-                        <img
-                          className="block h-8 w-auto lg:hidden"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                          alt="Your Company"
-                        />
-                        <img
-                          className="hidden h-8 w-auto lg:block"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                          alt="Your Company"
-                        />
-                      </div>
-                      <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "border-indigo-500 text-gray-900"
-                                : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                              "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                      <button
-                        type="button"
-                        className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-
-                      {/* Profile dropdown */}
-                      <Menu as="div" className="relative ml-3">
-                        <div>
-                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <span className="sr-only">Open user menu</span>
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
-                              alt=""
-                            />
-                          </Menu.Button>
-                        </div>
-                        <Transition
-                          as={Fragment}
-                          enter="transition ease-out duration-200"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
+                <h1 className="text-gray-600">first | last name</h1>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white space-y-6">
+            <div className="md:inline-flex space-y-4 md:space-y-0 w-full p-4 text-gray-500 items-center">
+              <h2 className="md:w-1/3 max-w-sm mx-auto">Account</h2>
+              <div className="md:w-2/3 max-w-sm mx-auto">
+                <div className="account__inputs">
+                  <label className="text-sm text-gray-400">Username</label>
+                  <div>
+                    <div className="w-full inline-flex border">
+                      <div className="pt-2 w-1/12 bg-gray-100 bg-opacity-50">
+                        <svg
+                          fill="none"
+                          className="w-6 text-gray-400 mx-auto"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
                         >
-                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
-                                {({ active }) => (
-                                  <a
-                                    href={item.href}
-                                    className={classNames(
-                                      active ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
-                                    )}
-                                  >
-                                    {item.name}
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            ))}
-                          </Menu.Items>
-                        </Transition>
-                      </Menu>
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                        placeholder="username"
+                        disabled
+                      />
                     </div>
-                    <div className="-mr-2 flex items-center sm:hidden">
-                      {/* Mobile menu button */}
-                      <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        <span className="sr-only">Open main menu</span>
-                        {open ? (
-                          <XMarkIcon
-                            className="block h-6 w-6"
-                            aria-hidden="true"
+                  </div>
+                  <label className="text-sm text-gray-400">Email</label>
+                  <div>
+                    <div className="w-full inline-flex border">
+                      <div className="pt-2 w-1/12 bg-gray-100 bg-opacity-50">
+                        <svg
+                          fill="none"
+                          className="w-6 text-gray-400 mx-auto"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                           />
-                        ) : (
-                          <Bars3Icon
-                            className="block h-6 w-6"
-                            aria-hidden="true"
-                          />
-                        )}
-                      </Disclosure.Button>
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                        placeholder="email@example.com"
+                        disabled
+                      />
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <Disclosure.Panel className="sm:hidden">
-                  <div className="space-y-1 pt-2 pb-3">
-                    {navigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-indigo-50 border-indigo-500 text-indigo-700"
-                            : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
-                          "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
+            <hr />
+            <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
+              <h2 className="md:w-1/3 mx-auto max-w-sm">Personal info</h2>
+              <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
+                <div>
+                  <label className="text-sm text-gray-400">First name</label>
+                  <div className="w-full inline-flex border">
+                    <div className="w-1/12 pt-2 bg-gray-100">
+                      <svg
+                        fill="none"
+                        className="w-6 text-gray-400 mx-auto"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
-                  </div>
-                  <div className="border-t border-gray-200 pt-4 pb-3">
-                    <div className="flex items-center px-4">
-                      <div className="flex-shrink-0">
-                        <img
-                          className="h-10 w-10 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                         />
-                      </div>
-                      <div className="ml-3">
-                        <div className="text-base font-medium text-gray-800">
-                          {user.name}
-                        </div>
-                        <div className="text-sm font-medium text-gray-500">
-                          {user.email}
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        className="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+                      </svg>
                     </div>
-                    <div className="mt-3 space-y-1">
-                      {userNavigation.map((item) => (
-                        <Disclosure.Button
-                          key={item.name}
-                          as="a"
-                          href={item.href}
-                          className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-                        >
-                          {item.name}
-                        </Disclosure.Button>
-                      ))}
-                    </div>
+                    <input
+                      type="text"
+                      className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                      placeholder="First Name"
+                    />
                   </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-
-          <div className="py-10">
-            <header>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-                  Dashboard
-                </h1>
-              </div>
-            </header>
-            <main>
-              <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {/* Replace with your content */}
-                <div className="px-4 py-8 sm:px-0">
-                  <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
                 </div>
-                {/* /End replace */}
+                <div>
+                  <label className="text-sm text-gray-400">Last name</label>
+                  <div className="w-full inline-flex border">
+                    <div className="w-1/12 pt-2 bg-gray-100">
+                      <svg
+                        fill="none"
+                        className="w-6 text-gray-400 mx-auto"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                      placeholder="Last Name"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm text-gray-400">Phone number</label>
+                  <div className="w-full inline-flex border">
+                    <div className="pt-2 w-1/12 bg-gray-100">
+                      <svg
+                        fill="none"
+                        className="w-6 text-gray-400 mx-auto"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
+                      placeholder="12341234"
+                    />
+                  </div>
+                </div>
               </div>
-            </main>
+            </div>
+
+            <hr />
+            <div className="md:inline-flex w-full space-y-4 md:space-y-0 p-8 text-gray-500 items-center">
+              <h2 className="md:w-4/12 max-w-sm mx-auto">Change password</h2>
+
+              <div className="md:w-5/12 w-full md:pl-9 max-w-sm mx-auto space-y-5 md:inline-flex pl-2">
+                <div className="w-full inline-flex border-b">
+                  <div className="w-1/12 pt-2">
+                    <svg
+                      fill="none"
+                      className="w-6 text-gray-400 mx-auto"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="password"
+                    className="w-11/12 focus:outline-none focus:text-gray-600 p-2 ml-4"
+                    placeholder="New"
+                  />
+                </div>
+              </div>
+
+              <div className="md:w-3/12 text-center md:pl-6">
+                <button className="text-white w-full mx-auto max-w-sm rounded-md text-center bg-indigo-400 py-2 px-4 inline-flex items-center focus:outline-none md:float-right">
+                  <svg
+                    fill="none"
+                    className="w-4 text-white mr-2"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                  Update
+                </button>
+              </div>
+            </div>
+
+            <hr />
+            <div className="w-full p-4 text-right text-gray-500">
+              <button className="inline-flex items-center focus:outline-none mr-4">
+                <svg
+                  fill="none"
+                  className="w-4 mr-2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                Delete account
+              </button>
+            </div>
           </div>
         </div>
-      </>
+      </section>
     </div>
   );
 }
