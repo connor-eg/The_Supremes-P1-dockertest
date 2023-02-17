@@ -80,10 +80,6 @@ public class Transfer {
         this.traamount = traamount;
     }
 
-    public boolean istraisdeposit() {
-        return this.traisdeposit;
-    }
-
     public boolean gettraisdeposit() {
         return this.traisdeposit;
     }
@@ -114,7 +110,7 @@ public class Transfer {
             " traid='" + gettraid() + "'" +
             ", traaccountid='" + gettraaccountid() + "'" +
             ", traamount='" + gettraamount() + "'" +
-            ", traisdeposit='" + istraisdeposit() + "'" +
+            ", traisdeposit='" + gettraisdeposit() + "'" +
             ", tratime='" + gettratime() + "'" +
             ", tradescription='" + gettradescription() + "'" +
             "}";

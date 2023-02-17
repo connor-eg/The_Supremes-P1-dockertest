@@ -8,10 +8,6 @@ import com.revature.model.Transfer;
 import java.util.List;
 
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
-    //For future me: the annotation below is how custom queries work in this dealio.
-    //nativeQuery = false makes it so that the query will be parsed as PSQL instead of
-    // having Spring try to interpret/validate it (with a different type of SQL).
-
     /**
      * Gets all of the transfers associated with this account.
      *  TODO: 
@@ -22,6 +18,10 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
      * @param traAccountId The account to check transfers for
      * @return All transfers associated with this account
      */
-    @Query(value = "SELECT * FROM Transfer WHERE traaccountid = ?1", nativeQuery = true)
+    @Query(value = "SELECT t FROM Transfer t WHERE t.traaccountid = ?1")
     List<Transfer> getTransfersByTraAccountId(Long traAccountId);
+
+    //Similar to above function, but also takes a second parameter to further refine your search to only the deposits/withdraws for a given account.
+    @Query(value = "SELECT t FROM Transfer t WHERE t.traaccountid = ?1 AND t.traisdeposit = ?2")
+    List<Transfer> getTransfersByTraAccountId(Long traAccountId, Boolean isDeposit);
 }

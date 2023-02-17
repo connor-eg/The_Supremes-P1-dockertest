@@ -31,13 +31,34 @@ public class TransferController {
 	}
 
     @PostMapping("new")
-    public void postTransfer(@RequestBody Transfer transfer){
-        transferService.addNewTransfer(transfer);
+    public ResponseEntity<String> postTransfer(@RequestBody Transfer transfer){
+        try{
+            transferService.addNewTransfer(transfer);
+        } catch(Exception e) {
+            return new ResponseEntity<>("Bad data in request!", HttpStatus.BAD_REQUEST);
+        }
+        
+        if(transfer.gettraisdeposit()){
+            return new ResponseEntity<>("Successfully deposited $" + transfer.gettraamount(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Successfully withdrew $" + transfer.gettraamount(), HttpStatus.OK);
+        }
+        
     }
 
     @GetMapping(path = "my")
     public List<Transfer> getTransfersByAccountId(@RequestBody Long accountid){
         return transferService.getTransfersByAccountId(accountid);
+    }
+
+    @GetMapping(path = "my/withdraws")
+    public List<Transfer> getWithdraws(@RequestBody Long accountid){
+        return transferService.getTransfersByAccountId(accountid, false);
+    }
+
+    @GetMapping(path = "my/deposits")
+    public List<Transfer> getDeposits(@RequestBody Long accountid){
+        return transferService.getTransfersByAccountId(accountid, true);
     }
 
 

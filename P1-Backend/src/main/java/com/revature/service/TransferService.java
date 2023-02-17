@@ -29,6 +29,10 @@ public class TransferService {
     return transferRepository.getTransfersByTraAccountId(accountid);
   }
 
+  public List<Transfer> getTransfersByAccountId(Long accountid, boolean isDeposit){
+    return transferRepository.getTransfersByTraAccountId(accountid, isDeposit);
+  }
+
   public ResponseEntity<String> sendMoneyBetweenTwoAccounts(Long fromAccountId, Long toAccountId, BigDecimal amount){
     //TODO: Check here that there is enough money in fromAccountId to send
     //TODO: Validate that the account owner is the one sending the money.
