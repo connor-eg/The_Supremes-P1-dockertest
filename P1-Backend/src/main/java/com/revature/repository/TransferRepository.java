@@ -16,6 +16,6 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
      * @param traAccountId
      * @return
      */
-    @Query(value = "SELECT * FROM Transfer WHERE tra_account_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Transfer WHERE traaccountid = ?1", nativeQuery = true)
     List<Transfer> getTransfersByTraAccountId(Long traAccountId);
 }
