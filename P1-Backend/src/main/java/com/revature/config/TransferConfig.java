@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Configuration;
 
 import com.revature.model.Transfer;
 import com.revature.repository.TransferRepository;
+import com.revature.service.TransferService;
 
 @Configuration
 public class TransferConfig {
 
     @Bean
-    CommandLineRunner transferCLR(TransferRepository repository) {
+    CommandLineRunner transferCLR(TransferRepository repository, TransferService service) {
         return args -> {
             Transfer t1 = new Transfer(
                 1L,
@@ -33,6 +34,8 @@ public class TransferConfig {
             repository.saveAll(
                 Arrays.asList(t1, t2)
             );
+
+            service.sendMoneyBetweenTwoAccounts(1L, 2L, new BigDecimal(250));
         };
     }
 }

@@ -37,12 +37,10 @@ public class Transfer {
     private Timestamp tratime;
     private String tradescription;
 
-
     public Transfer() {
     }
 
     public Transfer(Long traaccountid, @NonNull BigDecimal traamount, boolean traisdeposit, String tradescription) {
-        
         this.traaccountid = traaccountid;
         this.traamount = traamount;
         this.traisdeposit = traisdeposit;
