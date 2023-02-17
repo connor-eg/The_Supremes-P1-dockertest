@@ -1,5 +1,6 @@
 import NavBar from "../NavBar/NavBar";
-// import "./Header.css";
+import Theme from "../Theme/Theme";
+import "./Header.css";
 import disney from "./Disney.png";
 
 function Header() {
@@ -8,6 +9,7 @@ function Header() {
       This is the page header
       <div>
         <NavBar />
+        <Theme />
       </div>
     </div>
   );
