@@ -11,6 +11,8 @@ import {
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
+import ClientError from "./components/ClientError/ClientError";
+import Income from "./components/Income/Income";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/error",
+    element: <ClientError />,
+  },
+  {
+    path: "/income",
+    element: <Income />,
   },
 ]);
 
@@ -39,7 +49,7 @@ const authRouter = createBrowserRouter([
 ]);
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(true); //initially false
   /*
   (make global state )
   Check local storage to see if user instance exists,
@@ -53,7 +63,7 @@ function App() {
   };
 
   return (
-    <div className="">
+    <div className=" mt-20">
       <Header />
       <RouterProvider router={authenticated ? router : authRouter} />
     </div>
