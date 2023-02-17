@@ -10,11 +10,16 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
+import Profile from "./components/Profile/Profile";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 
@@ -22,21 +27,19 @@ const authRouter = createBrowserRouter([
   {
     path: "/",
     element: <Register />, //home route
-    children: [
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-    ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   /*
   (make global state )
   Check local storage to see if user instance exists,
@@ -50,7 +53,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="">
       <Header />
       <RouterProvider router={authenticated ? router : authRouter} />
     </div>

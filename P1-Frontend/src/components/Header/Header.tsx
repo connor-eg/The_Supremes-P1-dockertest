@@ -1,5 +1,5 @@
 import NavBar from "../NavBar/NavBar";
-import "./Header.css";
+// import "./Header.css";
 import disney from "./Disney.png";
 
 function Header() {
