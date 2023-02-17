@@ -3,12 +3,15 @@ package com.revature.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.springframework.lang.NonNull;
 
 
 @Entity
@@ -24,95 +27,98 @@ public class Transfer {
         strategy = GenerationType.SEQUENCE,
         generator = "transfer_sequence"
     )
-    private Long traid;
-    private Long traaccountid;
-    private BigDecimal traamount;
-    private boolean traisdeposit;
-    private Timestamp tratime;
-    private String tradescription;
+    private Long traId;
+    //Need to make this a foreign key later, for now it is just a number
+    private Long traAccountId;
+    @NonNull
+    private BigDecimal traAmount = new BigDecimal(0);
+    private boolean traIsDeposit;
+    @Column(insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
+    private Timestamp traTime;
+    private String traDescription;
 
 
     public Transfer() {
     }
 
-    public Transfer(Long traAccountId, BigDecimal traAmount, boolean traIsDeposit, Timestamp traTime, String traDescription) {
-        this.traaccountid = traAccountId;
-        this.traamount = traAmount;
-        this.traisdeposit = traIsDeposit;
-        this.tratime = traTime;
-        this.tradescription = traDescription;
+    public Transfer(Long traAccountId, @NonNull BigDecimal traAmount, boolean traIsDeposit, String traDescription) {
+        
+        this.traAccountId = traAccountId;
+        this.traAmount = traAmount;
+        this.traIsDeposit = traIsDeposit;
+        this.traDescription = traDescription;
     }
 
-    public Transfer(Long traId, Long traAccountId, BigDecimal traAmount, boolean traIsDeposit, Timestamp traTime, String traDescription) {
-        this.traid = traId;
-        this.traaccountid = traAccountId;
-        this.traamount = traAmount;
-        this.traisdeposit = traIsDeposit;
-        this.tratime = traTime;
-        this.tradescription = traDescription;
+    public Transfer(Long traId, Long traAccountId, @NonNull BigDecimal traAmount, boolean traIsDeposit, Timestamp traTime, String traDescription) {
+        this.traId = traId;
+        this.traAccountId = traAccountId;
+        this.traAmount = traAmount;
+        this.traIsDeposit = traIsDeposit;
+        this.traTime = traTime;
+        this.traDescription = traDescription;
     }
 
     public Long getTraid() {
-        return this.traid;
+        return this.traId;
     }
 
     public void setTraid(Long traId) {
-        this.traid = traId;
+        this.traId = traId;
     }
 
-    public Long getTraaccountid() {
-        return this.traaccountid;
+    public Long gettraAccountId() {
+        return this.traAccountId;
     }
 
-    public void setTraaccountid(Long traAccountId) {
-        this.traaccountid = traAccountId;
+    public void settraAccountId(Long traAccountId) {
+        this.traAccountId = traAccountId;
     }
 
-    public BigDecimal getTraamount() {
-        return this.traamount;
+    public BigDecimal gettraamount() {
+        return this.traAmount;
     }
 
-    public void setTraamount(BigDecimal traAmount) {
-        this.traamount = traAmount;
+    public void settraamount(@NonNull BigDecimal traAmount) {
+        this.traAmount = traAmount;
     }
 
-    public boolean isTraisdeposit() {
-        return this.traisdeposit;
+    public boolean istraIsDeposit() {
+        return this.traIsDeposit;
     }
 
-    public boolean getTraIsDeposit() {
-        return this.traisdeposit;
+    public boolean gettraIsDeposit() {
+        return this.traIsDeposit;
     }
 
-    public void setTraisdeposit(boolean traIsDeposit) {
-        this.traisdeposit = traIsDeposit;
+    public void settraIsDeposit(boolean traIsDeposit) {
+        this.traIsDeposit = traIsDeposit;
     }
 
-    public Timestamp getTratime() {
-        return this.tratime;
+    public Timestamp gettratime() {
+        return this.traTime;
     }
 
-    public void setTratime(Timestamp traTime) {
-        this.tratime = traTime;
+    public void settratime(Timestamp traTime) {
+        this.traTime = traTime;
     }
 
-    public String getTradescription() {
-        return this.tradescription;
+    public String gettradescription() {
+        return this.traDescription;
     }
 
-    public void setTradescription(String traDescription) {
-        this.tradescription = traDescription;
+    public void settradescription(String traDescription) {
+        this.traDescription = traDescription;
     }
     
     @Override
     public String toString() {
         return "{" +
             " traId='" + getTraid() + "'" +
-            ", traAccountId='" + getTraaccountid() + "'" +
-            ", traAmount='" + getTraamount() + "'" +
-            ", traIsDeposit='" + isTraisdeposit() + "'" +
-            ", traTime='" + getTratime() + "'" +
-            ", traDescription='" + getTradescription() + "'" +
+            ", traAccountId='" + gettraAccountId() + "'" +
+            ", traAmount='" + gettraamount() + "'" +
+            ", traIsDeposit='" + istraIsDeposit() + "'" +
+            ", traTime='" + gettratime() + "'" +
+            ", traDescription='" + gettradescription() + "'" +
             "}";
     }
 }

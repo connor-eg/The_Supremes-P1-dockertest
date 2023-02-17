@@ -1,7 +1,6 @@
 package com.revature.service;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.model.Transfer;
@@ -12,16 +11,19 @@ public class TransferService {
 
 	private final TransferRepository transferRepository;
 
-	@Autowired
 	public TransferService(TransferRepository transferRepository) {
 		this.transferRepository = transferRepository;
 	}
 
-    public List<Transfer> getTransfers() {
-        return transferRepository.findAll();
-    }
+  public List<Transfer> getTransfers() {
+    return transferRepository.findAll();
+  }
 
-    public void addNewTransfer(Transfer transfer) {
-		transferRepository.save(transfer);
-    }
+  public void addNewTransfer(Transfer transfer) {
+    transferRepository.save(transfer);
+  }
+
+  public List<Transfer> getTransfersByAccountId(Long accountid){
+    return transferRepository.getTransfersByTraAccountId(accountid);
+  }
 }
