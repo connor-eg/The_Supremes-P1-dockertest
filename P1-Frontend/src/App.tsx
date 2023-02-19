@@ -13,6 +13,7 @@ import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import ClientError from "./components/ClientError/ClientError";
 import Income from "./components/Income/Income";
+import Expenses from "./components/Expenses/Expenses";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/income",
     element: <Income />,
+  },
+  {
+    path: "/expenses",
+    element: <Expenses />,
   },
 ]);
 
