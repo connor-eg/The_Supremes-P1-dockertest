@@ -1,16 +1,14 @@
 package com.revature.controller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -23,7 +21,6 @@ public class UserAccountController {
 
     private final UserAccountService userAccountService;
 
-    @Autowired
     public UserAccountController(UserAccountService userAccountService) {
         this.userAccountService = userAccountService;
     }
@@ -34,15 +31,31 @@ public class UserAccountController {
     }
 
     @PostMapping("/register")
-    public void registerNewUserAccount(@RequestBody UserAccount userAccount) {
-        System.out.println(userAccount);
-        userAccountService.register(userAccount);
+    public ResponseEntity<Boolean> registerNewUserAccount(@RequestBody UserAccount userAccount) {
+
+      boolean result = userAccountService.register(userAccount);
+
+      if (result) {
+        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+      }
+      
+      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/login")
     public void login(@RequestBody ObjectNode loginForm) throws Exception {
-        System.out.println("Username: " + loginForm.get("username") + "\nPassword: " + loginForm.get("password"));
-        userAccountService.login(loginForm.get("username").asText(), loginForm.get("password").asText());
+      userAccountService.login(loginForm.get("username").asText(), loginForm.get("password").asText());
+    }
+
+    // Have ResponseEntity return string("Update successful") or ("Update failed: " + reasonForFailure)
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> updateUserAccount(@RequestBody ObjectNode updateForm) {
+      boolean result = userAccountService.update(updateForm);
+      if (result) {
+        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+      }
+
+      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
     }
     
 }

@@ -17,4 +17,10 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
     @Query("SELECT s FROM UserAccount s WHERE s.username = ?1 AND s.password = ?2")
     Optional<UserAccount> findByUsernameAndPassword(String username, String password);
 
+    /*
+     * UPDATE products SET price = price * 1.10
+        WHERE price <= 99.99
+        RETURNING name, price AS new_price;
+     */
+
 }
