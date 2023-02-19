@@ -6,7 +6,6 @@ import disney from "./Disney.png";
 function Header() {
   return (
     <div className="red-text">
-      This is the page header
       <div className="">
         <NavBar />
         <Theme />

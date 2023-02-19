@@ -1,3 +1,5 @@
+import "./Income.css"
+
 const people = [
   {
     name: "Lindsay Walton",
@@ -13,28 +15,25 @@ const people = [
 
 export default function Income() {
   return (
-    <div className="px-6 lg:px-8">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
-          </p>
-        </div>
-        <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Add user
+    <div className="p">
+      <div className="user-section">
+        <h2 className="user">Users</h2>
+        <p className="content-detail">
+          A list of all the users in your account including their name, title,
+          email and role.
+        </p>
+       
+        <div className="m">
+          <button type="button" className="add-user" style={{backgroundColor: '#818cf8'}}>
+            Add User
           </button>
         </div>
       </div>
-      <div className="mt-8 flow-root">
-        <div className="-my-2 -mx-6 overflow-x-auto lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <table className="min-w-full divide-y divide-gray-300">
+
+      <div className="">
+        <div className="">
+          <div className="table-container">
+            <table className="income-table">
               <thead>
                 <tr>
                   <th

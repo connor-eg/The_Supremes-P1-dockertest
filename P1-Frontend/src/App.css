@@ -5,3 +5,10 @@
   list-style: none;
 }
 
+:root {
+  --body-bg-clr: rgb(246, 246, 246);
+  --font-clr: #0f0f0f;
+  --secondary-clr: #fff;
+  --tertiary-clr: #818cf8;
+  --quaternary-clr: ;
+}

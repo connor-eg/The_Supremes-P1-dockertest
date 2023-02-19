@@ -1,0 +1,26 @@
+
+.user {
+    color: var(--tertiary-clr);
+    font-size: 20px;
+    margin: 25px 0 0 5%;
+}
+
+.content-detail {
+    color: var(--font-clr);
+    margin: 10px 0 0 5%;
+}
+
+.add-user {
+    border-radius: 10px;
+    color: var(--secondary-clr);
+    margin: 20px 0 0 5%;
+    padding: 7px 20px;
+}
+
+.table-container {
+    overflow: auto;
+}
+
+.income-table {
+    width: 100px;
+}

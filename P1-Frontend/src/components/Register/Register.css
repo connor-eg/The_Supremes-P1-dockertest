@@ -1,0 +1,39 @@
+.card-container {
+    background-color: var(--body-bg-clr);
+    border-radius: 15px;
+    margin: 90px auto;
+    padding-top: 0.5rem;
+    width: 350px;
+}
+
+.profile-img-card {
+    border-radius: 50%;
+    display: block;
+    margin: 1rem auto;
+    width: 100px;
+}
+
+.heading {
+    font-size: 30px;
+    margin: 0 0 10px 7%;
+}
+.register-label {
+    display: block;
+    margin: 0 0 7px 7%;
+}
+
+.form-control {
+    background-color: var(--secondary-clr);
+    border: 1.5px solid var(--secondary-clr);
+    border-radius: 15px;
+    height: 25px;
+    margin: 0 0 7px 5%;
+    width: 90%;
+}
+
+.sign-up {
+    border-radius: 10px;
+    color: #fff;
+    margin: 10px 0 15px 5%;
+    padding: 5px 25px 7px;
+}

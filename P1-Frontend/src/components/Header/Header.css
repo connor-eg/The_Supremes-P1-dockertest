@@ -1,6 +1,6 @@
 
 .navbar {
-    background: black;
+    background: var(--body-bg-clr);
     position: fixed;
     top: 0;
     width: 100%;
@@ -10,11 +10,11 @@
 }
 
 .logo {
-    margin: 12px 2.5% 0 0;
+    margin: 12px 0 0 2.5%;
 }
 
 .logo h2 {
-    color: white;
+    color: --font-clr;
     font-size: 45px;
 }
 
@@ -22,12 +22,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 10px;
+    margin-top: 19px;
     margin-right: 5%;
     z-index: 2;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     opacity: 0;
 }
 
@@ -36,9 +36,9 @@
     top: 10px;
     right: 0;
     z-index: 1;
-    width: 40px;
-    height: 40px;
-    margin-top: 7px;
+    width: 30px;
+    height: 30px;
+    margin-top: 14px;
     margin-right: 5%;
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@
     position: relative;
     width: 100%;
     height: 3px;
-    background-color: white;
+    background-color: var(--font-clr);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,7 +93,7 @@ nav {
     height: 100vh;
     transform: translateX(100%);
     transition: transform .5s ease-in-out;
-    background-color: black;
+    background-color: var(--body-bg-clr);
     width: 50%;
 }
 
@@ -104,7 +104,7 @@ nav ul {
 
 nav ul li {
     
-    color: white;
+    color: --font-clr;
     text-decoration: none;
     list-style-type: none;
     padding-bottom: 20px;

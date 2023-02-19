@@ -1,3 +1,4 @@
+import "./Register.css"
 import { Component } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -97,14 +98,14 @@ export default class Register extends Component<Props, State> {
     };
 
     return (
-      <div className="col-md-12">
+      <>
         <div className="card card-container">
           <img
             src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
             alt="profile-img"
             className="profile-img-card"
           />
-
+          <h1 className="heading">Register</h1>
           <Formik
             initialValues={initialValues}
             validationSchema={this.validationSchema}
@@ -114,7 +115,7 @@ export default class Register extends Component<Props, State> {
               {!successful && (
                 <div>
                   <div className="form-group">
-                    <label htmlFor="username"> Username </label>
+                    <label className="register-label" htmlFor="username"> Username </label>
                     <Field
                       name="username"
                       type="text"
@@ -128,7 +129,7 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email"> Email </label>
+                    <label className="register-label" htmlFor="email"> Email </label>
                     <Field name="email" type="email" className="form-control" />
                     <ErrorMessage
                       name="email"
@@ -138,7 +139,7 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="password"> Password </label>
+                    <label className="register-label" htmlFor="password"> Password </label>
                     <Field
                       name="password"
                       type="password"
@@ -152,7 +153,7 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-block">
+                    <button type="submit" className="sign-up" style={{backgroundColor: '#818cf8'}}>
                       Sign Up
                     </button>
                   </div>
@@ -174,7 +175,7 @@ export default class Register extends Component<Props, State> {
             </Form>
           </Formik>
         </div>
-      </div>
+      </>
     );
   }
 }
