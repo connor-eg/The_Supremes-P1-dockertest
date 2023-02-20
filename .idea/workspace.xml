@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="52380b97-6271-4268-ad6a-f391af8def28" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/controller/BankAccountController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/controller/UserAccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/controller/UserAccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/model/UserAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/model/UserAccount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/service/BankAccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/service/BankAccountService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/service/UserAccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/P1-Backend/target/classes/com/revature/service/UserAccountService.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Lybxn2nGIUSMRIUsG7ezKyrJkl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kp/Desktop/Revature/Team2-P1&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Team2-P1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Team2-P1" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="52380b97-6271-4268-ad6a-f391af8def28" name="Changes" comment="" />
+      <created>1676846518880</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676846518880</updated>
+    </task>
+    <servers />
+  </component>
+</project>
