@@ -1,4 +1,4 @@
-const people = [
+const transactions = [
   {
     title: "Deposit",
     date: "02/17/2023",
