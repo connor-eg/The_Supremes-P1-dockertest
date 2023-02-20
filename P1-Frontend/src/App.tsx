@@ -8,6 +8,13 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
@@ -53,6 +60,11 @@ const authRouter = createBrowserRouter([
   },
 ]);
 
+const userState = atom<{}>({
+  key: "userState", // unique ID (with respect to other atoms/selectors)
+  default: "", // default value (aka initial value)
+});
+
 function App() {
   const [authenticated, setAuthenticated] = useState(true); //initially false
   /*
@@ -68,10 +80,12 @@ function App() {
   };
 
   return (
-    <div className=" mt-20">
-      <Header />
-      <RouterProvider router={authenticated ? router : authRouter} />
-    </div>
+    <RecoilRoot>
+      <div className=" mt-20">
+        <Header />
+        <RouterProvider router={authenticated ? router : authRouter} />
+      </div>
+    </RecoilRoot>
   );
 }
 
