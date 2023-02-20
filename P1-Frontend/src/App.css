@@ -12,3 +12,9 @@
   --tertiary-clr: #818cf8;
   --quaternary-clr: ;
 }
+
+[data-theme="dark"] {
+  --body-bg-clr: #0f0f0f;
+  --font-clr: rgb(246, 246, 246);
+  --link-color: lightblue;
+}
