@@ -21,8 +21,16 @@ public class TransferService {
     return transferRepository.findAll();
   }
 
-  public void addNewTransfer(Transfer transfer) {
+  public ResponseEntity<String> addNewTransfer(Transfer transfer) {
+    if (transfer.gettraamount() == null) {
+      return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
+    }
+    if (transfer.gettraamount().compareTo(new BigDecimal(0)) <= 0) {
+      return new ResponseEntity<>("You cannot send that amount of money!", HttpStatus.BAD_REQUEST);
+    }
     transferRepository.save(transfer);
+    String actionWord = transfer.gettraisdeposit()? "Deposit" : "Withdraw";
+    return new ResponseEntity<>(actionWord + " completed successfully.", HttpStatus.OK);
   }
 
   public List<Transfer> getTransfersByAccountId(Long accountid){

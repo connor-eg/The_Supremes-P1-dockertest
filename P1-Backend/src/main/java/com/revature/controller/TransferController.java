@@ -32,18 +32,7 @@ public class TransferController {
 
     @PostMapping("new")
     public ResponseEntity<String> postTransfer(@RequestBody Transfer transfer){
-        try{
-            transferService.addNewTransfer(transfer);
-        } catch(Exception e) {
-            return new ResponseEntity<>("Bad data in request!", HttpStatus.BAD_REQUEST);
-        }
-        
-        if(transfer.gettraisdeposit()){
-            return new ResponseEntity<>("Successfully deposited $" + transfer.gettraamount(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Successfully withdrew $" + transfer.gettraamount(), HttpStatus.OK);
-        }
-        
+        return transferService.addNewTransfer(transfer);
     }
 
     @GetMapping(path = "my")

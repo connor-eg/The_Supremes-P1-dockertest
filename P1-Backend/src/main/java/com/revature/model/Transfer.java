@@ -30,7 +30,7 @@ public class Transfer {
     private Long traid;
     //Need to make this a foreign key later, for now it is just a number
     private Long traaccountid;
-    @NonNull @Column(columnDefinition = "numeric(19,2) not null check(traamount > 0)")
+    @NonNull
     private BigDecimal traamount = new BigDecimal(0);
     private boolean traisdeposit;
     @Column(insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
