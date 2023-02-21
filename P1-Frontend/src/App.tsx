@@ -66,7 +66,7 @@ const userState = atom<{}>({
 });
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(true); //initially false
+  const [authenticated, setAuthenticated] = useState(false); //initially false
   /*
   (make global state )
   Check local storage to see if user instance exists,
