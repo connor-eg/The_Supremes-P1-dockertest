@@ -28,14 +28,18 @@ export default function Accounts() {
                 </p>
               </div>
               <div className="ml-3 flex h-5 items-center">
-                <input
-                  id={`account-${account.id}`}
-                  aria-describedby={`account-${account.id}-description`}
-                  name="account"
-                  type="radio"
-                  defaultChecked={account.id === "checking"}
-                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
+                <button
+                  type="button"
+                  className="block mr-2 rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Income{" "}
+                </button>
+                <button
+                  type="button"
+                  className="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Expenses{" "}
+                </button>
               </div>
             </div>
           ))}
@@ -44,7 +48,7 @@ export default function Accounts() {
           type="button"
           className="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Submit{" "}
+          Create Account{" "}
         </button>
       </fieldset>
     </div>
