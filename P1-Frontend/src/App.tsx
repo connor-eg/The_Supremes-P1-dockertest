@@ -21,6 +21,7 @@ import Profile from "./components/Profile/Profile";
 import ClientError from "./components/ClientError/ClientError";
 import Income from "./components/Income/Income";
 import Expenses from "./components/Expenses/Expenses";
+import Accounts from "./components/Accounts/Accounts";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/expenses",
     element: <Expenses />,
+    //
+  },
+  {
+    path: "/accounts",
+    element: <Accounts />,
     //
   },
 ]);
