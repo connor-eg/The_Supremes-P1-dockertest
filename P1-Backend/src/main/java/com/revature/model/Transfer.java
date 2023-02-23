@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Reference;
 import org.springframework.lang.NonNull;
 
 
@@ -27,6 +28,7 @@ public class Transfer {
         strategy = GenerationType.SEQUENCE,
         generator = "transfer_sequence"
     )
+    @Reference(to = BankAccount.class)
     private Long traid;
     //Need to make this a foreign key later, for now it is just a number
     private Long traaccountid;

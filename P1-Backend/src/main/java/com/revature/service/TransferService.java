@@ -30,15 +30,19 @@ public class TransferService {
     }
     transferRepository.save(transfer);
     String actionWord = transfer.gettraisdeposit()? "Deposit" : "Withdraw";
-    return new ResponseEntity<>(actionWord + " completed successfully.", HttpStatus.OK);
+    return new ResponseEntity<>(actionWord + " ($" + transfer.gettraamount() + ") was successful.", HttpStatus.OK);
   }
 
-  public List<Transfer> getTransfersByAccountId(Long accountid){
-    return transferRepository.getTransfersByTraAccountId(accountid);
+  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid){
+    List<Transfer> body = transferRepository.getTransfersByTraAccountId(accountid);
+    if(body.isEmpty()) return ResponseEntity.status(404).body(body);
+    return ResponseEntity.status(200).body(body);
   }
 
-  public List<Transfer> getTransfersByAccountId(Long accountid, boolean isDeposit){
-    return transferRepository.getTransfersByTraAccountId(accountid, isDeposit);
+  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid, boolean isDeposit){
+    List<Transfer> body = transferRepository.getTransfersByTraAccountId(accountid, isDeposit);
+    if(body.isEmpty()) return ResponseEntity.status(404).body(body);
+    return ResponseEntity.status(200).body(body);
   }
 
   public ResponseEntity<String> sendMoneyBetweenTwoAccounts(Long fromAccountId, Long toAccountId, BigDecimal amount){

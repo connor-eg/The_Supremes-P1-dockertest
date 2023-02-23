@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,22 +37,23 @@ public class TransferController {
     }
 
     @GetMapping(path = "my")
-    public List<Transfer> getTransfersByAccountId(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestBody Long accountid){
         return transferService.getTransfersByAccountId(accountid);
     }
 
     @GetMapping(path = "my/withdraws")
-    public List<Transfer> getWithdraws(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getWithdraws(@RequestBody Long accountid){
         return transferService.getTransfersByAccountId(accountid, false);
     }
 
     @GetMapping(path = "my/deposits")
-    public List<Transfer> getDeposits(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getDeposits(@RequestBody Long accountid){
         return transferService.getTransfersByAccountId(accountid, true);
     }
 
 
     @PostMapping(path= "a2a")
+    @ExceptionHandler
     public ResponseEntity<String> sendMoneyBetweenTwoAccounts(
         @RequestBody ObjectNode json
     ){
