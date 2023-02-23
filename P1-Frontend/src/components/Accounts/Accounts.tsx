@@ -1,6 +1,6 @@
 const accounts = [
   { id: "checking", name: "Checking", description: "Balance $4.50" },
-  { id: "savings", name: "Savings", description: "Bank of America ••••0149" },
+  { id: "savings", name: "Savings", description: "Balance $200" },
 ];
 
 export default function Accounts() {
