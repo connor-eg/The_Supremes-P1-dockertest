@@ -105,11 +105,7 @@ export default class Register extends Component<Props, State> {
     return (
       <>
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+  
           <h1 className="heading">Register</h1>
           <Formik
             initialValues={initialValues}
@@ -170,7 +166,7 @@ export default class Register extends Component<Props, State> {
                     <button
                       type="submit"
                       className="sign-up"
-                      style={{ backgroundColor: "#818cf8" }}
+                      style={{ backgroundColor: "var(--tertiary-clr)" }}
                     >
                       Sign Up
                     </button>

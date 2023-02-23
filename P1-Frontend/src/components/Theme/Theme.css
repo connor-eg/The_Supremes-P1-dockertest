@@ -43,7 +43,7 @@ input:checked + .slider::before {
 }
 
 input:checked + .slider {
-    background-color: cornflowerblue;
+    background-color: var(--tertiary-clr);
 }
 
 .slider.round {

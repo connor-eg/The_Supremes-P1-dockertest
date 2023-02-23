@@ -1,0 +1,12 @@
+.card_card-container {
+    background-color: var(--primary-clr);
+    margin: 20px auto 0;
+    padding: 25px 0;
+    width: 300px;
+}
+
+.login-heading {
+    color: var(--font-clr);
+    font-size: 32px;
+    margin: 0 0 20px 5%;
+}

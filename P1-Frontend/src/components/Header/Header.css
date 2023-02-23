@@ -1,6 +1,6 @@
 
 .navbar {
-    background: var(--body-bg-clr);
+    background: var(--primary-clr);
     position: fixed;
     top: 0;
     width: 100%;
@@ -10,12 +10,12 @@
 }
 
 .logo {
-    margin: 12px 0 0 2.5%;
+    margin: 10px 0 0 2.5%;
 }
 
 .logo h2 {
-    color: --font-clr;
-    font-size: 45px;
+    color: var(--font-clr);
+    font-size: 37px;
 }
 
 .toggle {

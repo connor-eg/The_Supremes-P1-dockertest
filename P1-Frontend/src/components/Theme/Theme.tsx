@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react";
 import "./Theme.css"
-
+// darkMode
 const setDark =  () => {
     localStorage.setItem("theme", "dark");
     document.documentElement.setAttribute("data-theme", "dark");
