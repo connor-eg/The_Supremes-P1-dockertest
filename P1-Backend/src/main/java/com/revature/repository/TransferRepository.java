@@ -24,4 +24,14 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
     //Similar to above function, but also takes a second parameter to further refine your search to only the deposits/withdraws for a given account.
     @Query(value = "SELECT t FROM Transfer t WHERE t.traaccountid = ?1 AND t.traisdeposit = ?2")
     List<Transfer> getTransfersByTraAccountId(Long traAccountId, Boolean isDeposit);
+
+    //Allows us to get all transfers for an account, by month
+    @Query(value = "select " +
+    "* " +
+    "from transfer t " +
+    "where traaccountid = ?1 " +
+    "and extract(year from tratime) = ?2 " +
+    "and extract(month from tratime) = ?3 " +
+    "order by tratime desc;", nativeQuery = true)
+    List<Transfer> getTransfersByAccountIdAndYearAndMonth(Long traAccountId, int year, int month);
 }

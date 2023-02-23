@@ -31,7 +31,7 @@ public class TransferController {
 		return transferService.getTransfers();
 	}
 
-    @PostMapping("new")
+    @PostMapping
     public ResponseEntity<String> postTransfer(@RequestBody Transfer transfer){
         return transferService.addNewTransfer(transfer);
     }
@@ -51,6 +51,29 @@ public class TransferController {
         return transferService.getTransfersByAccountId(accountid, true);
     }
 
+    @GetMapping(path= "my/bytime")
+    @ExceptionHandler
+    public ResponseEntity<List<Transfer>> getTransfersByAccountYearMonth(
+        @RequestBody ObjectNode json
+    ){
+        if(
+            json.get("accountId") == null ||
+            json.get("year") == null ||
+            json.get("month") == null
+        ) {
+           return ResponseEntity.status(400).body(null);
+        }
+
+        try {
+            return transferService.getTransfersByAccountAndTime(
+                json.get("accountId").asLong(), 
+                json.get("year").asInt(), 
+                json.get("month").asInt()
+            );
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(null);
+        }
+    }
 
     @PostMapping(path= "a2a")
     @ExceptionHandler
@@ -76,4 +99,5 @@ public class TransferController {
             return new ResponseEntity<>("Bad data in request!", HttpStatus.BAD_REQUEST);
         }
     }
+
 }

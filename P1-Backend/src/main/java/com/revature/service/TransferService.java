@@ -72,4 +72,10 @@ public class TransferService {
       transferRepository.save(to);
     return new ResponseEntity<>("Successfully transferred $" + amount + " from account #" + fromAccountId + " to #" + toAccountId, HttpStatus.OK);
   }
+
+  public ResponseEntity<List<Transfer>> getTransfersByAccountAndTime(Long accId, int year, int month){
+    List<Transfer> transfers = transferRepository.getTransfersByAccountIdAndYearAndMonth(accId, year, month);
+    if(transfers.isEmpty()) return ResponseEntity.status(404).body(null);
+    return ResponseEntity.status(200).body(transfers);
+  }
 }
