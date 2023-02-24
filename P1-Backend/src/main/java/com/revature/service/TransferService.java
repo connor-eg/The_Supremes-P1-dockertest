@@ -74,8 +74,14 @@ public class TransferService {
   }
 
   public ResponseEntity<List<Transfer>> getTransfersByAccountAndTime(Long accId, int year, int month){
-    List<Transfer> transfers = transferRepository.getTransfersByAccountIdAndYearAndMonth(accId, year, month);
-    if(transfers.isEmpty()) return ResponseEntity.status(404).body(null);
+    List<Transfer> transfers;
+    try{
+      transfers = transferRepository.getTransfersByAccountIdAndYearAndMonth(accId, year, month);
+    } catch (Exception e){
+      e.printStackTrace();
+      return ResponseEntity.status(500).body(null);
+    }
+    if(transfers.isEmpty()) return ResponseEntity.status(404).body(transfers);
     return ResponseEntity.status(200).body(transfers);
   }
 }

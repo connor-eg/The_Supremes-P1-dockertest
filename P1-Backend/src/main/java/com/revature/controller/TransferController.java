@@ -3,16 +3,14 @@ package com.revature.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.revature.model.Transfer;
 import com.revature.service.TransferService;
 
@@ -37,67 +35,36 @@ public class TransferController {
     }
 
     @GetMapping(path = "my")
-    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestHeader Long accountid){
         return transferService.getTransfersByAccountId(accountid);
     }
 
     @GetMapping(path = "my/withdraws")
-    public ResponseEntity<List<Transfer>> getWithdraws(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getWithdraws(@RequestHeader Long accountid){
         return transferService.getTransfersByAccountId(accountid, false);
     }
 
     @GetMapping(path = "my/deposits")
-    public ResponseEntity<List<Transfer>> getDeposits(@RequestBody Long accountid){
+    public ResponseEntity<List<Transfer>> getDeposits(@RequestHeader Long accountid){
         return transferService.getTransfersByAccountId(accountid, true);
     }
 
     @GetMapping(path= "my/bytime")
-    @ExceptionHandler
     public ResponseEntity<List<Transfer>> getTransfersByAccountYearMonth(
-        @RequestBody ObjectNode json
+        @RequestHeader Long accountId,
+        @RequestHeader int year,
+        @RequestHeader int month
     ){
-        if(
-            json.get("accountId") == null ||
-            json.get("year") == null ||
-            json.get("month") == null
-        ) {
-           return ResponseEntity.status(400).body(null);
-        }
-
-        try {
-            return transferService.getTransfersByAccountAndTime(
-                json.get("accountId").asLong(), 
-                json.get("year").asInt(), 
-                json.get("month").asInt()
-            );
-        } catch (Exception e) {
-            return ResponseEntity.status(400).body(null);
-        }
+        return transferService.getTransfersByAccountAndTime(accountId, year, month);
     }
 
     @PostMapping(path= "a2a")
-    @ExceptionHandler
     public ResponseEntity<String> sendMoneyBetweenTwoAccounts(
-        @RequestBody ObjectNode json
+        @RequestHeader Long fromAccount,
+        @RequestHeader Long toAccount,
+        @RequestHeader BigDecimal amount
     ){
-        if(
-            json.get("fromAccount") == null ||
-            json.get("toAccount") == null ||
-            json.get("amount") == null
-        ) {
-            return new ResponseEntity<>("You are missing data from your request!", HttpStatus.BAD_REQUEST);
-        }
-
-        try {
-            BigDecimal amount = new BigDecimal(json.get("amount").asText());
-            return transferService.sendMoneyBetweenTwoAccounts(
-                json.get("fromAccount").asLong(), 
-                json.get("toAccount").asLong(), 
-                amount
-            );
-        } catch (Exception e) {
-            return new ResponseEntity<>("Bad data in request!", HttpStatus.BAD_REQUEST);
-        }
+        return transferService.sendMoneyBetweenTwoAccounts(fromAccount, toAccount, amount);
     }
 
 }
