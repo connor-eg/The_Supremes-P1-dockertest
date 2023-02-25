@@ -29,92 +29,99 @@ public class Transfer {
         generator = "transfer_sequence"
     )
     @Reference(to = BankAccount.class)
-    private Long traid;
+    private Long id;
     //Need to make this a foreign key later, for now it is just a number
-    private Long traaccountid;
+    private Long accountId;
     @NonNull
-    private BigDecimal traamount = new BigDecimal(0);
-    private boolean traisdeposit;
+    private BigDecimal amount = new BigDecimal(0);
+    private boolean isDeposit;
     @Column(insertable = false, updatable = false, columnDefinition = "timestamp default current_timestamp")
-    private Timestamp tratime;
-    private String tradescription;
+    private Timestamp time;
+    private String description;
 
     public Transfer() {
     }
 
-    public Transfer(Long traaccountid, @NonNull BigDecimal traamount, boolean traisdeposit, String tradescription) {
-        this.traaccountid = traaccountid;
-        this.traamount = traamount;
-        this.traisdeposit = traisdeposit;
-        this.tradescription = tradescription;
+    public Transfer(Long accountId, @NonNull BigDecimal amount, boolean isDeposit, String description) {
+        this.accountId = accountId;
+        this.amount = amount;
+        this.isDeposit = isDeposit;
+        this.description = description;
     }
 
-    public Transfer(Long traid, Long traaccountid, @NonNull BigDecimal traamount, boolean traisdeposit, Timestamp tratime, String tradescription) {
-        this.traid = traid;
-        this.traaccountid = traaccountid;
-        this.traamount = traamount;
-        this.traisdeposit = traisdeposit;
-        this.tratime = tratime;
-        this.tradescription = tradescription;
+    public Transfer(Long traId, Long accountId, @NonNull BigDecimal amount, boolean isDeposit, Timestamp time, String description) {
+        this.id = traId;
+        this.accountId = accountId;
+        this.amount = amount;
+        this.isDeposit = isDeposit;
+        this.time = time;
+        this.description = description;
     }
 
-    public Long gettraid() {
-        return this.traid;
+
+    public Long getId() {
+        return this.id;
     }
 
-    public void settraid(Long traid) {
-        this.traid = traid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long gettraaccountid() {
-        return this.traaccountid;
+    public Long getAccountId() {
+        return this.accountId;
     }
 
-    public void settraaccountid(Long traaccountid) {
-        this.traaccountid = traaccountid;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public BigDecimal gettraamount() {
-        return this.traamount;
+    public BigDecimal getAmount() {
+        return this.amount;
     }
 
-    public void settraamount(@NonNull BigDecimal traamount) {
-        this.traamount = traamount;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public boolean gettraisdeposit() {
-        return this.traisdeposit;
+    public boolean isIsDeposit() {
+        return this.isDeposit;
     }
 
-    public void settraisdeposit(boolean traisdeposit) {
-        this.traisdeposit = traisdeposit;
+    public boolean getIsDeposit() {
+        return this.isDeposit;
     }
 
-    public Timestamp gettratime() {
-        return this.tratime;
+    public void setIsDeposit(boolean isDeposit) {
+        this.isDeposit = isDeposit;
     }
 
-    public void settratime(Timestamp tratime) {
-        this.tratime = tratime;
+    public Timestamp getTime() {
+        return this.time;
     }
 
-    public String gettradescription() {
-        return this.tradescription;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
-    public void settradescription(String tradescription) {
-        this.tradescription = tradescription;
+    public String getDescription() {
+        return this.description;
     }
-    
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
     @Override
     public String toString() {
         return "{" +
-            " traid='" + gettraid() + "'" +
-            ", traaccountid='" + gettraaccountid() + "'" +
-            ", traamount='" + gettraamount() + "'" +
-            ", traisdeposit='" + gettraisdeposit() + "'" +
-            ", tratime='" + gettratime() + "'" +
-            ", tradescription='" + gettradescription() + "'" +
+            " id='" + getId() + "'" +
+            ", accountId='" + getAccountId() + "'" +
+            ", amount='" + getAmount() + "'" +
+            ", isDeposit='" + isIsDeposit() + "'" +
+            ", time='" + getTime() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
+    
 }

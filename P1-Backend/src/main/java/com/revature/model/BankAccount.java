@@ -19,50 +19,72 @@ public class BankAccount {
     sequenceName = "bankaccount_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, 
     generator = "bankaccount_sequence")
-    private long bacid;
+    private long id;
     //TODO: Make this a reference to the user accounts table
-    private long bacuserid;
-    private AccType acctype;
+    private long userId;
+    private AccType accType;
     @Column(insertable = false, updatable = false, columnDefinition = "numeric(19,2) default 0")
     private BigDecimal balance;
 
-    public BankAccount(AccType accType, BigDecimal balance, Long bacid, Long bacuserid) {
-        this.acctype=accType;
-        this.balance=balance;
-        this.bacid=bacid;
-        this.bacuserid=bacuserid;
+
+    public BankAccount(long id, long userId, AccType accType, BigDecimal balance) {
+        this.id = id;
+        this.userId = userId;
+        this.accType = accType;
+        this.balance = balance;
     }
 
-    public BankAccount(AccType accType, Long bacuserid) {
-        this.acctype = accType;
-        this.bacuserid = bacuserid;
+    public BankAccount(long userId, AccType accType) {
+        this.userId = userId;
+        this.accType = accType;
     }
 
     public BankAccount() {}
 
-    public AccType getAcctype() {return acctype;}
-    public void setAcctype(AccType accType) {this.acctype = accType;}
 
-    public BigDecimal getBalance() {return balance;}
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public AccType getAccType() {
+        return this.accType;
+    }
+
+    public void setAccType(AccType accType) {
+        this.accType = accType;
+    }
+
+    public BigDecimal getBalance() {
+        return this.balance;
+    }
+
     public void setBalance(BigDecimal balance) {
         if (balance != null) {
             this.balance = balance;
         }
     }
 
-    public long getBacId() {return bacid;}
-    public void setBacId(int bacid) {this.bacid = bacid;}
-
-    public long getBacUserId() {return bacuserid;}
-    public void setBacUserId(int bacuserid) {this.bacuserid = bacuserid;}
 
     @Override
     public String toString() {
-        return "BankAccount{" +
-                "balance= " + balance +                
-                ", accType=" + acctype +
-                ", bacid= " + bacid +
-                ", bacuserid= " + bacuserid +
-                '}';
+        return "{" +
+            " id='" + getId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", accType='" + getAccType() + "'" +
+            ", balance='" + getBalance() + "'" +
+            "}";
     }
+    
 }

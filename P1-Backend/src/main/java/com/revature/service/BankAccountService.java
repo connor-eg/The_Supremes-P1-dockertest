@@ -2,7 +2,6 @@ package com.revature.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,6 @@ import com.revature.repository.BankAccountRepository;
 public class BankAccountService{
     BankAccountRepository bankAccountRepository;
 
-    @Autowired
     public BankAccountService(BankAccountRepository bankAccountRepository) {
         super();
         this.bankAccountRepository = bankAccountRepository;
@@ -22,7 +20,7 @@ public class BankAccountService{
     public ResponseEntity<List<BankAccount>> getBankAccountsByUserId(Long userId) {
         List<BankAccount> accounts;
         try {
-            accounts = bankAccountRepository.getBankAccountsByUserId(userId);
+            accounts = bankAccountRepository.findByUserId(userId);
         } catch (Exception e){
             return ResponseEntity.status(500).body(null);
         }
@@ -39,7 +37,7 @@ public class BankAccountService{
         }
 
         String actionWord = "";
-        BankAccount.AccType accType = ba.getAcctype();
+        BankAccount.AccType accType = ba.getAccType();
         if(accType == BankAccount.AccType.CHECKING) {
             actionWord = "checking";
         } else {

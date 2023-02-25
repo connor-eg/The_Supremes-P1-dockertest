@@ -22,25 +22,38 @@ public class TransferService {
   }
 
   public ResponseEntity<String> addNewTransfer(Transfer transfer) {
-    if (transfer.gettraamount() == null) {
+    if (transfer.getAmount() == null) {
       return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
     }
-    if (transfer.gettraamount().compareTo(new BigDecimal(0)) <= 0) {
+    if (transfer.getAmount().compareTo(new BigDecimal(0)) <= 0) {
       return new ResponseEntity<>("You cannot send that amount of money!", HttpStatus.BAD_REQUEST);
     }
-    transferRepository.save(transfer);
-    String actionWord = transfer.gettraisdeposit()? "Deposit" : "Withdraw";
-    return new ResponseEntity<>(actionWord + " ($" + transfer.gettraamount() + ") was successful.", HttpStatus.OK);
+
+    //TODO: Validate that the transfer that is being sent up would not point at an account that doesn't exist.
+
+    try {
+      transferRepository.save(transfer);
+    } catch (Exception e) {
+      return ResponseEntity.status(500).body("Something went wrong while attempting to save your transfer.");
+    }
+    
+    String actionWord = transfer.getIsDeposit()? "Deposit" : "Withdraw";
+    return new ResponseEntity<>(actionWord + " ($" + transfer.getAmount() + ") was successful.", HttpStatus.OK);
   }
 
   public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid){
-    List<Transfer> body = transferRepository.getTransfersByTraAccountId(accountid);
+    List<Transfer> body;
+    try {
+      body = transferRepository.findByAccountId(accountid);
+    } catch (Exception e) {
+      return ResponseEntity.status(500).body(null);
+    }
     if(body.isEmpty()) return ResponseEntity.status(404).body(body);
     return ResponseEntity.status(200).body(body);
   }
 
   public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid, boolean isDeposit){
-    List<Transfer> body = transferRepository.getTransfersByTraAccountId(accountid, isDeposit);
+    List<Transfer> body = transferRepository.findByAccountIdAndIsDeposit(accountid, isDeposit);
     if(body.isEmpty()) return ResponseEntity.status(404).body(body);
     return ResponseEntity.status(200).body(body);
   }
@@ -76,7 +89,7 @@ public class TransferService {
   public ResponseEntity<List<Transfer>> getTransfersByAccountAndTime(Long accId, int year, int month){
     List<Transfer> transfers;
     try{
-      transfers = transferRepository.getTransfersByAccountIdAndYearAndMonth(accId, year, month);
+      transfers = transferRepository.getUsingAccountIdAndMonth(accId, year, month);
     } catch (Exception e){
       e.printStackTrace();
       return ResponseEntity.status(500).body(null);

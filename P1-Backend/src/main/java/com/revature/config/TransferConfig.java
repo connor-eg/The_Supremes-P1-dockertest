@@ -21,9 +21,11 @@ public class TransferConfig {
         return args -> {
 
             baRepository.save(new BankAccount(
-                BankAccount.AccType.CHECKING, 1L));
+                1L,
+                BankAccount.AccType.CHECKING));
             baRepository.save(new BankAccount(
-                BankAccount.AccType.SAVINGS, 1L));
+                1L,
+                BankAccount.AccType.SAVINGS));
 
             Transfer t1 = new Transfer(
                 1L,
