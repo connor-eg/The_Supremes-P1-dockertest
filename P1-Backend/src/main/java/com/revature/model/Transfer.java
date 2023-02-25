@@ -31,6 +31,12 @@ public class Transfer {
     @Reference(to = BankAccount.class)
     private Long id;
     //Need to make this a foreign key later, for now it is just a number
+    /*
+     * So after trying for a couple of hours to implement an actual many-to-one relationship here that points entries towards the BankAccount table,
+     *  I eventually gave up (too much confusing documentation). My solution for the time being is to simply check for an existing bank account when
+     *  attempting to add a transfer in the transfer service. Not a good solution to the problem (it invites bad code elsewhere), but should work while
+     *  continuing to develop the project. Will try to fix when I have more time.
+     */
     private Long accountId;
     @NonNull
     private BigDecimal amount = new BigDecimal(0);

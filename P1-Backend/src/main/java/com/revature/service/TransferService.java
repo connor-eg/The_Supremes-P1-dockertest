@@ -7,14 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.revature.model.Transfer;
+import com.revature.repository.BankAccountRepository;
 import com.revature.repository.TransferRepository;
 
 @Service
 public class TransferService {
 	private final TransferRepository transferRepository;
+  public final BankAccountRepository bankAccountRepository;
 
-	public TransferService(TransferRepository transferRepository) {
+	public TransferService(TransferRepository transferRepository, BankAccountRepository bankAccountRepository) {
 		this.transferRepository = transferRepository;
+    this.bankAccountRepository = bankAccountRepository;
 	}
 
   public List<Transfer> getTransfers() {
@@ -28,6 +31,13 @@ public class TransferService {
     if (transfer.getAmount().compareTo(new BigDecimal(0)) <= 0) {
       return new ResponseEntity<>("You cannot send that amount of money!", HttpStatus.BAD_REQUEST);
     }
+
+    //Uses the bank account repository to determine if a transfer is valid (i.e. would be connected to an actual account)
+    
+    if(!bankAccountRepository.findById(transfer.getAccountId()).isPresent()) {
+      return ResponseEntity.status(403).body("That transfer is not linked to any account!");
+    }
+  
 
     //TODO: Validate that the transfer that is being sent up would not point at an account that doesn't exist.
 
