@@ -24,9 +24,9 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
     @Query(value = "select " +
     "* " +
     "from transfer t " +
-    "where traaccountid = ?1 " +
-    "and extract(year from tratime) = ?2 " +
-    "and extract(month from tratime) = ?3 " +
-    "order by tratime desc;", nativeQuery = true)
+    "where t.account_id = ?1 " +
+    "and extract(year from t.time) = ?2 " +
+    "and extract(month from t.time) = ?3 " +
+    "order by t.time desc;", nativeQuery = true)
     List<Transfer> getUsingAccountIdAndMonth(Long traAccountId, int year, int month);
 }
