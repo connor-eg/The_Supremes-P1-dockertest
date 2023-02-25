@@ -1,13 +1,17 @@
-
+.income-section {
+    background-color: var(--primary-clr);
+    padding: 20px 0 30px 5%;
+    margin: 15px auto 0;
+}
 .user {
     color: var(--tertiary-clr);
     font-size: 20px;
-    margin: 25px 0 0 5%;
+
 }
 
 .content-detail {
     color: var(--font-clr);
-    margin: 10px 0 0 5%;
+    margin: 10px 0 0;
 }
 
 .add-user {
@@ -18,9 +22,50 @@
 }
 
 .table-container {
+    
+    margin: 15px 0 0;
     overflow: auto;
 }
 
 .income-table {
-    width: 100px;
+    width: 88%;
+} 
+
+.table-heading {
+    border-bottom: 1px solid var(--tertiary-clr);
+    color: var(--font-clr);
+    text-align: left;
+}
+
+.income-content {
+    border-bottom: 1px solid var(--tertiary-clr);
+    padding: 15px 0;
+}
+.table-content {
+    display: flex;
+}
+
+.income-pic {
+    border-radius: 50%;
+    height: 35px;
+    margin-right: 8px;
+    width: 35px;
+}
+
+.income-text {
+    color: var(--font-clr);
+    margin-right: 20px;
+}
+
+@media only screen and (min-width: 700px) {
+    .income-section {
+        width: 500px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+
+    .income-section {
+        padding-left: 2.5%;
+    }
 }
