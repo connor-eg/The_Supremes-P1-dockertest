@@ -30,7 +30,9 @@ public class TransferController {
 	}
 
     @PostMapping
-    public ResponseEntity<String> postTransfer(@RequestBody Transfer transfer){
+    public ResponseEntity<String> postTransfer(@RequestBody Transfer t){
+        //Ensuring that time/id values passed in have no effect
+        Transfer transfer = new Transfer(t.getAccountId(), t.getAmount(), t.getIsDeposit(), t.getDescription());
         return transferService.addNewTransfer(transfer);
     }
 

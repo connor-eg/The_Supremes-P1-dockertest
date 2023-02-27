@@ -1,7 +1,6 @@
 package com.revature.config;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +16,7 @@ import com.revature.service.TransferService;
 public class TransferConfig {
 
     @Bean
-    CommandLineRunner transferCLR(TransferRepository tRepository, BankAccountRepository baRepository, TransferService service) {
+    CommandLineRunner transferCLR(TransferRepository tRepository, BankAccountRepository baRepository, TransferService tService) {
         return args -> {
 
             baRepository.save(new BankAccount(
@@ -29,9 +28,9 @@ public class TransferConfig {
 
             Transfer t1 = new Transfer(
                 1L,
-                new BigDecimal("20.0"),
+                new BigDecimal("200.0"),
                 true,
-                "Found a $20 bill on the road"
+                "Found a $200 bill on the road"
             );
 
             Transfer t2 = new Transfer(
@@ -41,12 +40,10 @@ public class TransferConfig {
             "Pack of gum"
             );
 
-            tRepository.saveAll(
-                Arrays.asList(t1, t2)
-            );
+            tService.addNewTransfer(t1);
+            tService.addNewTransfer(t2);
 
-
-            service.sendMoneyBetweenTwoAccounts(1L, 2L, new BigDecimal(250));
+            tService.sendMoneyBetweenTwoAccounts(1L, 2L, new BigDecimal(30));
         };
     }
 }

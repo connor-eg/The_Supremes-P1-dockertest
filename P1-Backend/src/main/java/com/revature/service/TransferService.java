@@ -1,11 +1,15 @@
 package com.revature.service;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.revature.model.BankAccount;
 import com.revature.model.Transfer;
 import com.revature.repository.BankAccountRepository;
 import com.revature.repository.TransferRepository;
@@ -24,6 +28,7 @@ public class TransferService {
     return transferRepository.findAll();
   }
 
+  @Transactional
   public ResponseEntity<String> addNewTransfer(Transfer transfer) {
     if (transfer.getAmount() == null) {
       return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
@@ -33,15 +38,29 @@ public class TransferService {
     }
 
     //Uses the bank account repository to determine if a transfer is valid (i.e. would be connected to an actual account)
-    
-    if(!bankAccountRepository.findById(transfer.getAccountId()).isPresent()) {
+    Optional<BankAccount> linkedBankAccountOptional =  bankAccountRepository.findById(transfer.getAccountId());
+    if(!linkedBankAccountOptional.isPresent()) {
       return ResponseEntity.status(403).body("That transfer is not linked to any account!");
     }
-  
 
-    //TODO: Validate that the transfer that is being sent up would not point at an account that doesn't exist.
+    BankAccount linkedBankAccount = linkedBankAccountOptional.get();
 
+    //Now that we know that the account ID points at an actual accout, validate that it has enough funds
+    // for a withdraw of the requested amount (if the transfer requested is for a withdraw)
+    if(!transfer.getIsDeposit()){
+      if(linkedBankAccount.getBalance().compareTo(transfer.getAmount()) < 0){
+        return ResponseEntity.status(403).body("There aren't enough funds in that account to make that withdrawal!");
+      }
+    }
+
+    //If all of our checks passed, we are now ready to post the transfer and update the account with new info.
     try {
+      if(transfer.getIsDeposit()) {
+        linkedBankAccount.setBalance(linkedBankAccount.getBalance().add(transfer.getAmount()));
+      } else {
+        linkedBankAccount.setBalance(linkedBankAccount.getBalance().subtract(transfer.getAmount()));
+      }
+      bankAccountRepository.updateBalance(linkedBankAccount.getId(), linkedBankAccount.getBalance());
       transferRepository.save(transfer);
     } catch (Exception e) {
       return ResponseEntity.status(500).body("Something went wrong while attempting to save your transfer.");
@@ -68,8 +87,8 @@ public class TransferService {
     return ResponseEntity.status(200).body(body);
   }
 
+  @Transactional
   public ResponseEntity<String> sendMoneyBetweenTwoAccounts(Long fromAccountId, Long toAccountId, BigDecimal amount){
-    //TODO: Check here that there is enough money in fromAccountId to send
     //TODO: Validate that the account owner is the one sending the money.
     if (amount == null) {
       return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
@@ -81,6 +100,25 @@ public class TransferService {
     if(fromAccountId == toAccountId){
       return new ResponseEntity<>("You cannot transfer money from an account to itself!", HttpStatus.BAD_REQUEST);
     }
+
+    // Checking that the accounts specified exist.
+    Optional<BankAccount> fromAccountOptional =  bankAccountRepository.findById(fromAccountId);
+    if(!fromAccountOptional.isPresent()) {
+      return ResponseEntity.status(403).body("The account you are sending monet from doesn't exist!");
+    }
+    BankAccount fromAccount = fromAccountOptional.get();
+
+    Optional<BankAccount> toAccountOptional =  bankAccountRepository.findById(toAccountId);
+    if(!toAccountOptional.isPresent()) {
+      return ResponseEntity.status(403).body("The account you are sending monet from doesn't exist!");
+    }
+    BankAccount toAccount = toAccountOptional.get();
+
+    //Checking that the "from" account has enough money to complete the transfer
+    if(fromAccount.getBalance().compareTo(amount) < 0) {
+      return ResponseEntity.status(403).body("There isn't enough money in that account to send $" + amount + "!");
+    }
+
     Transfer from = new Transfer(
       fromAccountId, 
       amount, 
@@ -91,6 +129,15 @@ public class TransferService {
       amount, 
       true, 
       "Account-to-Account transfer: " + fromAccountId + " to " + toAccountId + ": $" + amount);
+
+      //Update the locally stored bankaccount objects to reflect the new balance
+      fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+      toAccount.setBalance(toAccount.getBalance().add(amount));
+
+      //Push those changes to the database.
+      //FOUR database updates in a row. I hope @Transactional does what I think it does.
+      bankAccountRepository.updateBalance(fromAccount.getId(), fromAccount.getBalance());
+      bankAccountRepository.updateBalance(toAccount.getId(), toAccount.getBalance());
       transferRepository.save(from);
       transferRepository.save(to);
     return new ResponseEntity<>("Successfully transferred $" + amount + " from account #" + fromAccountId + " to #" + toAccountId, HttpStatus.OK);

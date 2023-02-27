@@ -33,9 +33,9 @@ public class Transfer {
     //Need to make this a foreign key later, for now it is just a number
     /*
      * So after trying for a couple of hours to implement an actual many-to-one relationship here that points entries towards the BankAccount table,
-     *  I eventually gave up (too much confusing documentation). My solution for the time being is to simply check for an existing bank account when
-     *  attempting to add a transfer in the transfer service. Not a good solution to the problem (it invites bad code elsewhere), but should work while
-     *  continuing to develop the project. Will try to fix when I have more time.
+     * I eventually gave up (too much confusing documentation). My solution for the time being is to simply check for an existing bank account when
+     * attempting to add a transfer in the transfer service. Not a good solution to the problem (it invites bad code elsewhere), but should work 
+     * for our purposes.
      */
     private Long accountId;
     @NonNull
@@ -89,10 +89,6 @@ public class Transfer {
         this.amount = amount;
     }
 
-    public boolean isIsDeposit() {
-        return this.isDeposit;
-    }
-
     public boolean getIsDeposit() {
         return this.isDeposit;
     }
@@ -124,7 +120,7 @@ public class Transfer {
             " id='" + getId() + "'" +
             ", accountId='" + getAccountId() + "'" +
             ", amount='" + getAmount() + "'" +
-            ", isDeposit='" + isIsDeposit() + "'" +
+            ", isDeposit='" + getIsDeposit() + "'" +
             ", time='" + getTime() + "'" +
             ", description='" + getDescription() + "'" +
             "}";
