@@ -10,7 +10,7 @@ export default function Accounts() {
     <div>
       <section className="account-section">
         <h2 className="account-heading">Accounts </h2>
-        <p className="account-text">Please Select an account </p>
+        <p className="account-description">Please Select an account </p>
         <fieldset className="">
           <legend className="hidden-visually">Bank account</legend>
             {accounts.map((account, accountIdx) => (

@@ -10,6 +10,12 @@
     font-size: 20px;
 }
 
+.account-description {
+    color: var(--font-clr);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
 .account-text {
     color: var(--font-clr);
     font-size: 14px;
