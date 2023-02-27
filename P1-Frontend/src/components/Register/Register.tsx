@@ -1,4 +1,4 @@
-import "./Register.css"
+import "./Register.css";
 import { Component } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -67,8 +67,13 @@ export default class Register extends Component<Props, State> {
 
     AuthService.register(username, email, password).then(
       (response) => {
+        console.log(
+          "🚀 ~ file: Register.tsx:91 ~ Register ~ response:",
+          response
+        );
+
         this.setState({
-          message: response.data.message,
+          message: "registered Success",
           successful: true,
         });
       },
@@ -100,11 +105,7 @@ export default class Register extends Component<Props, State> {
     return (
       <>
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+  
           <h1 className="heading">Register</h1>
           <Formik
             initialValues={initialValues}
@@ -115,7 +116,10 @@ export default class Register extends Component<Props, State> {
               {!successful && (
                 <div>
                   <div className="form-group">
-                    <label className="register-label" htmlFor="username"> Username </label>
+                    <label className="register-label" htmlFor="username">
+                      {" "}
+                      Username{" "}
+                    </label>
                     <Field
                       name="username"
                       type="text"
@@ -129,7 +133,10 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <label className="register-label" htmlFor="email"> Email </label>
+                    <label className="register-label" htmlFor="email">
+                      {" "}
+                      Email{" "}
+                    </label>
                     <Field name="email" type="email" className="form-control" />
                     <ErrorMessage
                       name="email"
@@ -139,7 +146,10 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <label className="register-label" htmlFor="password"> Password </label>
+                    <label className="register-label" htmlFor="password">
+                      {" "}
+                      Password{" "}
+                    </label>
                     <Field
                       name="password"
                       type="password"
@@ -153,7 +163,11 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <button type="submit" className="sign-up" style={{backgroundColor: '#818cf8'}}>
+                    <button
+                      type="submit"
+                      className="sign-up"
+                      style={{ backgroundColor: "var(--tertiary-clr)" }}
+                    >
                       Sign Up
                     </button>
                   </div>

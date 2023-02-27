@@ -14,10 +14,12 @@
 }
 
 .heading {
+    color: var(--font-clr);
     font-size: 30px;
     margin: 0 0 10px 7%;
 }
 .register-label {
+    color: var(--font-clr);
     display: block;
     margin: 0 0 7px 7%;
 }

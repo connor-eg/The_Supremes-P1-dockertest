@@ -1,3 +1,4 @@
+import "./Login.css"
 import { Component } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -42,23 +43,19 @@ const Login = () => {
   return (
     <div className="">
       <div className="card_card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
+        <h1 className="login-heading">Login</h1>
         <Formik
           initialValues={{
-            username: "",
-            password: "",
+            //test values
+            username: "testUser1",
+            password: "test1",
           }}
           validationSchema={loginSchema}
           onSubmit={handleLogin}
         >
           <Form>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label className="register-label" htmlFor="username">Username</label>
               <Field name="username" type="text" className="form-control" />
               <ErrorMessage
                 name="username"
@@ -68,7 +65,7 @@ const Login = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label className="register-label" htmlFor="password">Password</label>
               <Field name="password" type="password" className="form-control" />
               <ErrorMessage
                 name="password"
@@ -80,7 +77,8 @@ const Login = () => {
             <div className="form-group">
               <button
                 type="submit"
-                className="btn_btn-primary"
+                className="sign-up"
+                style={{ backgroundColor: "var(--tertiary-clr)" }}
                 disabled={loading}
               >
                 {loading && <span className="spinner-border"></span>}

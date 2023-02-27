@@ -1,6 +1,6 @@
 
 .navbar {
-    background: var(--body-bg-clr);
+    background: var(--primary-clr);
     position: fixed;
     top: 0;
     width: 100%;
@@ -10,12 +10,12 @@
 }
 
 .logo {
-    margin: 12px 0 0 2.5%;
+    margin: 10px 0 0 2.5%;
 }
 
 .logo h2 {
-    color: --font-clr;
-    font-size: 45px;
+    color: var(--font-clr);
+    font-size: 37px;
 }
 
 .toggle {
@@ -93,7 +93,7 @@ nav {
     height: 100vh;
     transform: translateX(100%);
     transition: transform .5s ease-in-out;
-    background-color: var(--body-bg-clr);
+    background-color: var(--primary-clr);
     width: 50%;
 }
 
@@ -104,7 +104,7 @@ nav ul {
 
 nav ul li {
     
-    color: --font-clr;
+    color: var(--font-clr);
     text-decoration: none;
     list-style-type: none;
     padding-bottom: 20px;

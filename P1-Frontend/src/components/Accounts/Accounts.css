@@ -1,0 +1,42 @@
+.account-section {
+    background-color: var(--primary-clr);
+    border-top: 2px solid var(--tertiary-clr);
+    margin: 25px auto 0;
+    padding: 15px 0 15px 5%;
+}
+
+.account-heading {
+    color: var(--font-clr);
+    font-size: 20px;
+}
+
+.account-description {
+    color: var(--font-clr);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.account-text {
+    color: var(--font-clr);
+    font-size: 14px;
+
+}
+
+.hidden-visually {
+    font-size: 0;
+}
+
+.account-button {
+    border-radius: 10px;
+    color: #fff;
+    margin: 10px 8px 15px 0;
+    padding: 5px 25px 7px;
+}
+
+@media only screen and (min-width: 700px) {
+.account-section {
+    width: 400px;
+}
+
+
+}
