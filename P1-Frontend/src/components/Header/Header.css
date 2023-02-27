@@ -93,7 +93,7 @@ nav {
     height: 100vh;
     transform: translateX(100%);
     transition: transform .5s ease-in-out;
-    background-color: var(--body-bg-clr);
+    background-color: var(--primary-clr);
     width: 50%;
 }
 
@@ -104,7 +104,7 @@ nav ul {
 
 nav ul li {
     
-    color: --font-clr;
+    color: var(--font-clr);
     text-decoration: none;
     list-style-type: none;
     padding-bottom: 20px;

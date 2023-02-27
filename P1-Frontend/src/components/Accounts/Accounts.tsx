@@ -1,3 +1,5 @@
+import "./Accounts.css"
+
 const accounts = [
   { id: "checking", name: "Checking", description: "Balance $4.50" },
   { id: "savings", name: "Savings", description: "Balance $200" },
@@ -6,51 +8,56 @@ const accounts = [
 export default function Accounts() {
   return (
     <div>
-      <h2 className="text-lg font-medium leading-6 text-gray-900">Accounts </h2>
-      <p className="mt-1 text-sm text-gray-500">Please Select an account </p>
-      <fieldset className="mt-2">
-        <legend className="sr-only">Bank account</legend>
-        <div className="divide-y divide-gray-200">
-          {accounts.map((account, accountIdx) => (
-            <div key={accountIdx} className="relative flex items-start py-4">
-              <div className="min-w-0 flex-1 text-sm">
-                <label
-                  htmlFor={`account-${account.id}`}
-                  className="font-medium text-gray-700"
-                >
-                  {account.name}
-                </label>
-                <p
-                  id={`account-${account.id}-description`}
-                  className="text-gray-500"
-                >
-                  {account.description}
-                </p>
+      <section className="account-section">
+        <h2 className="account-heading">Accounts </h2>
+        <p className="account-text">Please Select an account </p>
+        <fieldset className="">
+          <legend className="hidden-visually">Bank account</legend>
+            {accounts.map((account, accountIdx) => (
+              <div key={accountIdx} className="account-text">
+                <div className="">
+                  <label
+                    htmlFor={`account-${account.id}`}
+                    className="account-heading"
+                  >
+                    {account.name}
+                  </label>
+                  <p
+                    id={`account-${account.id}-description`}
+                    className="account-text"
+                  >
+                    {account.description}
+                  </p>
+                </div>
+                <div className="">
+                  <button
+                    type="button"
+                    className="account-button"
+                    style={{ backgroundColor: "var(--tertiary-clr)" }}
+                  >
+                    Income{" "}
+                  </button>
+                  <button
+                    type="button"
+                    className="account-button"
+                    style={{ backgroundColor: "var(--tertiary-clr)" }}
+                  >
+                    Expenses{" "}
+                  </button>
+                </div>
               </div>
-              <div className="ml-3 flex h-5 items-center">
-                <button
-                  type="button"
-                  className="block mr-2 rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Income{" "}
-                </button>
-                <button
-                  type="button"
-                  className="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Expenses{" "}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button
-          type="button"
-          className="block rounded-md bg-indigo-600 py-1.5 px-3 text-center text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Create Account{" "}
-        </button>
-      </fieldset>
+            ))}
+          
+          <button
+            type="button"
+            className="account-button"
+            style={{ backgroundColor: "var(--tertiary-clr)" }}
+          >
+            Create Account{" "}
+          </button>
+        </fieldset>
+      </section>
+      
     </div>
   );
 }
