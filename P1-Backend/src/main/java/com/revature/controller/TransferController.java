@@ -1,10 +1,13 @@
 package com.revature.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,18 +19,54 @@ import com.revature.service.TransferService;
 public class TransferController {
     private final TransferService transferService;
 
-    @Autowired
     public TransferController(TransferService transferService){
         this.transferService = transferService;
     }
 
-    @GetMapping
+    //TODO: Delete this function, it should only be implemented for testing
+    @GetMapping(path = "all")
 	public List<Transfer> getTransfers(){
 		return transferService.getTransfers();
 	}
 
     @PostMapping
-    public void addNewTransfer(Transfer transfer){
-        transferService.addNewTransfer(transfer);
+    public ResponseEntity<String> postTransfer(@RequestBody Transfer t){
+        //Ensuring that time/id values passed in have no effect
+        Transfer transfer = new Transfer(t.getAccountId(), t.getAmount(), t.getIsDeposit(), t.getDescription());
+        return transferService.addNewTransfer(transfer);
     }
+
+    @GetMapping(path = "my")
+    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestHeader Long accountid){
+        return transferService.getTransfersByAccountId(accountid);
+    }
+
+    @GetMapping(path = "my/withdraws")
+    public ResponseEntity<List<Transfer>> getWithdraws(@RequestHeader Long accountid){
+        return transferService.getTransfersByAccountId(accountid, false);
+    }
+
+    @GetMapping(path = "my/deposits")
+    public ResponseEntity<List<Transfer>> getDeposits(@RequestHeader Long accountid){
+        return transferService.getTransfersByAccountId(accountid, true);
+    }
+
+    @GetMapping(path= "my/bytime")
+    public ResponseEntity<List<Transfer>> getTransfersByAccountYearMonth(
+        @RequestHeader Long accountId,
+        @RequestHeader int year,
+        @RequestHeader int month
+    ){
+        return transferService.getTransfersByAccountAndTime(accountId, year, month);
+    }
+
+    @PostMapping(path= "a2a")
+    public ResponseEntity<String> sendMoneyBetweenTwoAccounts(
+        @RequestHeader Long fromAccount,
+        @RequestHeader Long toAccount,
+        @RequestHeader BigDecimal amount
+    ){
+        return transferService.sendMoneyBetweenTwoAccounts(fromAccount, toAccount, amount);
+    }
+
 }

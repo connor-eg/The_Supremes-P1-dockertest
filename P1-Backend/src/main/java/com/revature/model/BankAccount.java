@@ -1,5 +1,8 @@
 package com.revature.model;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,43 +13,78 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class BankAccount {
-
+    public enum AccType {CHECKING, SAVINGS}
     @Id
     @SequenceGenerator(name = "bankaccount_sequence", 
     sequenceName = "bankaccount_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, 
     generator = "bankaccount_sequence")
+    private long id;
+    //TODO: Make this a reference to the user accounts table
+    private long userId;
+    private AccType accType;
+    @Column(insertable = false, updatable = false, columnDefinition = "numeric(19,2) default 0")
+    private BigDecimal balance;
 
-    private float amount;
-    private int accID;
-    private int userID;
 
-    public BankAccount(float amount, Integer accID, Integer userID) {
-        this.amount=amount;
-        this.accID=accID;
-        this.userID=userID;
+    public BankAccount(long id, long userId, AccType accType, BigDecimal balance) {
+        this.id = id;
+        this.userId = userId;
+        this.accType = accType;
+        this.balance = balance;
     }
 
-    public BankAccount(float amount, int userID) {
-        this.amount = amount;
-        this.userID = userID;
+    public BankAccount(long userId, AccType accType) {
+        this.userId = userId;
+        this.accType = accType;
     }
 
-    public float getAmount() {return amount;}
-    public void setAmount(float amount) {this.amount = amount;}
+    public BankAccount() {}
 
-    public int getAccID() {return accID;}
-    public void setAccID(int accID) {this.accID = accID;}
 
-    public int getUserID() {return userID;}
-    public void setUserID(int userID) {this.userID = userID;}
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public AccType getAccType() {
+        return this.accType;
+    }
+
+    public void setAccType(AccType accType) {
+        this.accType = accType;
+    }
+
+    public BigDecimal getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        if (balance != null) {
+            this.balance = balance;
+        }
+    }
+
 
     @Override
     public String toString() {
-        return "BankAccount{" +
-                "amount=" + amount +
-                ", accID=" + accID +
-                ", userID=" + userID +
-                '}';
+        return "{" +
+            " id='" + getId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", accType='" + getAccType() + "'" +
+            ", balance='" + getBalance() + "'" +
+            "}";
     }
+    
 }
