@@ -21,11 +21,15 @@ function Register(){
     </div>
 
     function onUserNameChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormUserName(event.target.value);
+        if(event.target.value != null){
+            setFormUserName(event.target.value);
+        }
     }
 
     function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormPassword(event.target.value);
+        if(event.target.value != null){
+            setFormPassword(event.target.value);
+        }
     }
 
     function onSubmit(){
@@ -42,7 +46,7 @@ function Register(){
         })
         .catch(exception => {
             setFeedback("Something went wrong while registering your account.");
-        })
+        });
     }
 }
 export default Register;

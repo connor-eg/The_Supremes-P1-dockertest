@@ -1,9 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UserAccount } from "../../models/UserAccount";
 
 function Login(){
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+    const [formUserName, setFormUserName] = useState("");
+    const [formPassword, setFormPassword] = useState("");
+    const [feedback, setFeedback] = useState("Please fill out the form above to log in to your account.");
 
     return <div>
         <h2>Log in or do not.</h2>
@@ -15,20 +18,39 @@ function Login(){
         </form>
         <button onClick={onSubmit}>log in</button>
         <Link to={"/"}><button>do not</button></Link>
+        <p>{feedback}</p>
     </div>
 
     function onUserNameChange(event: React.ChangeEvent<HTMLInputElement>){
-        setUserName(event.target.value);
+        if(event.target.value != null){
+            setFormUserName(event.target.value);
+        }
     }
 
     function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>){
-        setPassword(event.target.value);
+        if(event.target.value != null){
+            setFormPassword(event.target.value);
+        }
     }
 
     function onSubmit(){
-        console.log(`[${userName}]:[${password}]`);
+        console.log(`[${formUserName}]:[${formPassword}]`);
+        //It's axiosing time
+        var loginUser: UserAccount = {
+            username: formUserName,
+            password: formPassword
+        }
+        axios.post<UserAccount>("http://localhost:8080/home/login", loginUser)
+        .then(response => {
+            console.log(response.data);
+            setFeedback("Successfully logged in.");
+            
 
-        
+        })
+        .catch(exception => {
+            setFeedback("Something went wrong while logging in to your account.");
+            console.log(exception);
+        });
     }
 }
 
