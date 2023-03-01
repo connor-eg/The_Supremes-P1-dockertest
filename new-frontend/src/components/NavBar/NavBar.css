@@ -1,0 +1,12 @@
+.flex {
+    display: flex;
+}
+
+.flex>*{
+    margin: 4px;
+    padding: 2px;
+    border: 2px rgba(28, 25, 25, 0.421) solid;
+    background-color: rgba(31, 10, 58, 0.719);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
