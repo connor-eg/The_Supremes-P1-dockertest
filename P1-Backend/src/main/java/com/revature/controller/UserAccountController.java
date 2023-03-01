@@ -2,8 +2,8 @@ package com.revature.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.revature.model.UserAccount;
 import com.revature.service.UserAccountService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/home")
 public class UserAccountController {
@@ -31,31 +32,18 @@ public class UserAccountController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Boolean> registerNewUserAccount(@RequestBody UserAccount userAccount) {
-
-      boolean result = userAccountService.register(userAccount);
-
-      if (result) {
-        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
-      }
-      
-      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<UserAccount> registerNewUserAccount(@RequestBody UserAccount userAccount) {
+     return userAccountService.register(userAccount);
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody ObjectNode loginForm) throws Exception {
-      userAccountService.login(loginForm.get("username").asText(), loginForm.get("password").asText());
+    public ResponseEntity<UserAccount> login(@RequestBody ObjectNode loginForm) throws Exception {
+      return userAccountService.login(loginForm.get("username").asText(), loginForm.get("password").asText());
     }
 
-    // Have ResponseEntity return string("Update successful") or ("Update failed: " + reasonForFailure)
     @PutMapping("/update")
-    public ResponseEntity<Boolean> updateUserAccount(@RequestBody ObjectNode updateForm) {
-      boolean result = userAccountService.update(updateForm);
-      if (result) {
-        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
-      }
-
-      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<UserAccount> updateUserAccount(@RequestBody ObjectNode updateForm) {
+      return userAccountService.update(updateForm);
     }
     
 }

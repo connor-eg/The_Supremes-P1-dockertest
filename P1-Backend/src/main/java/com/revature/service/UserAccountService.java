@@ -5,12 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.revature.model.UserAccount;
 import com.revature.repository.UserAccountRepository;
+
 
 
 
@@ -29,42 +30,67 @@ public class UserAccountService {
         return accountArrList;
     }
 
-    public boolean register(UserAccount userAccount) {
+    public ResponseEntity<UserAccount> register(UserAccount userAccount) {
 
-        Optional<UserAccount> userAccountOptional = userAccountRepository.findByUsername(userAccount.getUsername());
-        if (userAccountOptional.isPresent()) {
-            return false;
-        }
-
+        Optional<UserAccount> userAccountOptional;
         UserAccount newUser;
-        newUser = userAccountRepository.save(userAccount);
-        if (newUser.getUserAccountId() == 0) {
-            return false;
+
+        try {
+            userAccountOptional = userAccountRepository.findByUsername(userAccount.getUsername());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
-
-        return true;
-    }
-
-    public boolean login(String username, String password) {
-        Optional<UserAccount> userAccountOptional = userAccountRepository.findByUsernameAndPassword(username, password);
-        System.out.println("HEYO LOOK AT THIS " + userAccountOptional);
-        if (userAccountOptional.isPresent()) {
-            System.out.println("This should contain fields: " + userAccountOptional);
-            System.out.println("User: " + userAccountOptional.get().getUsername() + " has logged in successfully!");
-        } else {
-            System.out.println("This should not contain any fields: " + userAccountOptional);
-            System.out.println("Credentials supplied were not correct.");
-        }
-        return userAccountOptional.isPresent();
-    }
-
-    public boolean update(ObjectNode updateForm) {
-        Optional<UserAccount> userAccountOptional = userAccountRepository.findByUsernameAndPassword(
-                updateForm.get("currUsername").asText(), updateForm.get("currPassword").asText());
         
         if (userAccountOptional.isPresent()) {
-            UserAccount updateUser = new UserAccount();
-            updateUser = userAccountOptional.get();
+            return ResponseEntity.status(404).body(null);
+        }
+
+        try {
+            newUser = userAccountRepository.save(userAccount);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+
+        return ResponseEntity.status(200).body(newUser);
+    }
+
+    public ResponseEntity<UserAccount> login(String username, String password) {
+        Optional<UserAccount> optionalUserAccount;
+        UserAccount userAccount;
+        try {
+            optionalUserAccount = userAccountRepository.findByUsernameAndPassword(username, password);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body(null);
+        }
+        if (!optionalUserAccount.isPresent()) {
+            return ResponseEntity.status(404).body(null);
+        }
+        userAccount = optionalUserAccount.get();
+        String newToken = userAccount.generateToken();
+        userAccount.setSessionToken(newToken);
+        try {
+            userAccountRepository.save(userAccount);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(userAccount);
+        }
+
+        return ResponseEntity.status(200).body(userAccount);
+
+    }
+
+    public ResponseEntity<UserAccount> update(ObjectNode updateForm) {
+        Optional<UserAccount> optionalUserAccount;
+        UserAccount updateUser;
+
+        try {
+            optionalUserAccount = userAccountRepository.findByUsernameAndPassword(
+                    updateForm.get("currUsername").asText(), updateForm.get("currPassword").asText());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+
+        if (optionalUserAccount.isPresent()) {
+            updateUser = optionalUserAccount.get();
 
             Iterator<String> jsonFields = updateForm.fieldNames();
 
@@ -99,11 +125,27 @@ public class UserAccountService {
                     }
                 }
             }
-            userAccountRepository.save(updateUser);
+            try {
+                userAccountRepository.save(updateUser);
+            } catch (Exception e) {
+                return ResponseEntity.status(500).body(null);
+            }
         } else {
-            System.out.println("Current user could not be found.");
+            return ResponseEntity.status(404).body(null);
         }
-        return userAccountOptional.isPresent();
+        return ResponseEntity.status(200).body(updateUser);
+    }
+    
+    public boolean checkToken(ObjectNode authForm) {
+        try {
+             Optional<UserAccount> user = userAccountRepository.findByUsernameAndSessionToken(
+                     authForm.get("username").asText(), authForm.get("token").asText());
+             if (user.isPresent()) {
+                 return true;
+             }
+         } catch (Exception e) {
+         }
+         return false;
     }
 }
 

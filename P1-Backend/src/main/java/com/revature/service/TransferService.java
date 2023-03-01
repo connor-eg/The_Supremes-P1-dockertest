@@ -37,6 +37,10 @@ public class TransferService {
       return new ResponseEntity<>("You cannot send that amount of money!", HttpStatus.BAD_REQUEST);
     }
 
+    //Todo: get user by token
+    //      get list of bank accounts by accountId
+    //      check list of bank accounts for account that matches 
+
     //Uses the bank account repository to determine if a transfer is valid (i.e. would be connected to an actual account)
     Optional<BankAccount> linkedBankAccountOptional =  bankAccountRepository.findById(transfer.getAccountId());
     if(!linkedBankAccountOptional.isPresent()) {
