@@ -1,6 +1,7 @@
 package com.revature.model;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -150,6 +151,20 @@ public class UserAccount {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String generateToken() {
+        int low = 48;
+        int high = 122;
+        int strLen = 16;
+        Random random = new Random();
+
+        String newToken = random.ints(low, high + 1).filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+            .limit(strLen)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+      
+        return newToken;
     }
 
 
