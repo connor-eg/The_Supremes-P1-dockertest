@@ -38,7 +38,7 @@ public class AuthService {
 
             if (bankAccount.isPresent()) {
                 try {
-                    userAccount = userAccountRepository.findByUserAccountId(accountId);
+                    userAccount = userAccountRepository.findByUserAccountIdAndSessionToken(accountId, sessionToken);
                 } catch (Exception e) {
                     return false;
                 }
@@ -73,7 +73,7 @@ public class AuthService {
 
         if (sessionToken != null && userId != null) {
             try {
-                userAccount = userAccountRepository.findByUserAccountId(userId);
+                userAccount = userAccountRepository.findByUserAccountIdAndSessionToken(userId, sessionToken);
             } catch (Exception e) {
                 return false;
             }
