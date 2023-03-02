@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,11 @@ import com.revature.repository.UserAccountRepository;
 public class UserAccountService {
 
     private final UserAccountRepository userAccountRepository;
+    public final AuthService authService;
 
-    public UserAccountService(UserAccountRepository userAccountRepository) {
+    public UserAccountService(UserAccountRepository userAccountRepository, AuthService authService) {
         this.userAccountRepository = userAccountRepository;
+        this.authService = authService;
     }
 
     public ArrayList<UserAccount> getUserAccounts() {
@@ -78,13 +81,20 @@ public class UserAccountService {
 
     }
 
-    public ResponseEntity<UserAccount> update(ObjectNode updateForm) {
+    public ResponseEntity<UserAccount> update(ObjectNode updateForm, String sessionToken) {
         Optional<UserAccount> optionalUserAccount;
         UserAccount updateUser;
 
+        if (sessionToken == null || sessionToken.isEmpty() || updateForm.get("userAccountId").asText() == null || updateForm.get("userAccountId").asText().isEmpty()) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        if (authService.verifyUser(sessionToken, updateForm.get("userAccountId").asLong()) == false) {
+            return ResponseEntity.status(500).body(null);
+        }
+
         try {
-            optionalUserAccount = userAccountRepository.findByUsernameAndPassword(
-                    updateForm.get("currUsername").asText(), updateForm.get("currPassword").asText());
+            optionalUserAccount = userAccountRepository.findBySessionToken(sessionToken);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
@@ -136,17 +146,19 @@ public class UserAccountService {
         return ResponseEntity.status(200).body(updateUser);
     }
     
-    public boolean checkToken(ObjectNode authForm) {
+    public ResponseEntity<UserAccount> getUserInfo(String sessionToken) {
         try {
-             Optional<UserAccount> user = userAccountRepository.findByUsernameAndSessionToken(
-                     authForm.get("username").asText(), authForm.get("token").asText());
-             if (user.isPresent()) {
-                 return true;
-             }
-         } catch (Exception e) {
-         }
-         return false;
+            Optional<UserAccount> user = userAccountRepository.findBySessionToken(sessionToken);
+            if (user.isPresent()) {
+                UserAccount userInfo = user.get();
+                return ResponseEntity.status(200).body(userInfo);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+        return ResponseEntity.status(404).body(null);
     }
+
 }
 
 

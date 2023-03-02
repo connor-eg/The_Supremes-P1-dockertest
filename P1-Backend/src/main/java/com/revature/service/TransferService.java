@@ -18,18 +18,16 @@ import com.revature.repository.TransferRepository;
 public class TransferService {
 	private final TransferRepository transferRepository;
   public final BankAccountRepository bankAccountRepository;
+  public final AuthService authService;
 
-	public TransferService(TransferRepository transferRepository, BankAccountRepository bankAccountRepository) {
+	public TransferService(TransferRepository transferRepository, BankAccountRepository bankAccountRepository, AuthService authService) {
 		this.transferRepository = transferRepository;
     this.bankAccountRepository = bankAccountRepository;
+    this.authService = authService;
 	}
 
-  public List<Transfer> getTransfers() {
-    return transferRepository.findAll();
-  }
-
   @Transactional
-  public ResponseEntity<String> addNewTransfer(Transfer transfer) {
+  public ResponseEntity<String> addNewTransfer(Transfer transfer, String token) {
     if (transfer.getAmount() == null) {
       return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
     }
@@ -37,9 +35,9 @@ public class TransferService {
       return new ResponseEntity<>("You cannot send that amount of money!", HttpStatus.BAD_REQUEST);
     }
 
-    //Todo: get user by token
-    //      get list of bank accounts by accountId
-    //      check list of bank accounts for account that matches 
+    if (authService.verifyTransfer(token, transfer.getAccountId()) == false) {
+      return new ResponseEntity<>("Session Token invalid. Please login again.", HttpStatus.BAD_REQUEST);
+    }
 
     //Uses the bank account repository to determine if a transfer is valid (i.e. would be connected to an actual account)
     Optional<BankAccount> linkedBankAccountOptional =  bankAccountRepository.findById(transfer.getAccountId());
@@ -74,8 +72,13 @@ public class TransferService {
     return new ResponseEntity<>(actionWord + " ($" + transfer.getAmount() + ") was successful.", HttpStatus.OK);
   }
 
-  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid){
+  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid, String sessionToken){
     List<Transfer> body;
+
+    if (authService.verifyTransfer(sessionToken, accountid) == false) {
+      return ResponseEntity.status(403).body(null);
+    }
+
     try {
       body = transferRepository.findByAccountId(accountid);
     } catch (Exception e) {
@@ -85,15 +88,22 @@ public class TransferService {
     return ResponseEntity.status(200).body(body);
   }
 
-  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid, boolean isDeposit){
+  public ResponseEntity<List<Transfer>> getTransfersByAccountId(Long accountid, boolean isDeposit, String sessionToken) {
+    if (authService.verifyTransfer(sessionToken, accountid) == false) {
+      return ResponseEntity.status(403).body(null);
+    }
+
     List<Transfer> body = transferRepository.findByAccountIdAndIsDeposit(accountid, isDeposit);
     if(body.isEmpty()) return ResponseEntity.status(404).body(body);
     return ResponseEntity.status(200).body(body);
   }
 
   @Transactional
-  public ResponseEntity<String> sendMoneyBetweenTwoAccounts(Long fromAccountId, Long toAccountId, BigDecimal amount){
-    //TODO: Validate that the account owner is the one sending the money.
+  public ResponseEntity<String> sendMoneyBetweenTwoAccounts(Long fromAccountId, Long toAccountId, BigDecimal amount, String sessionToken) {
+    if (authService.verifyTransfer(sessionToken, fromAccountId) == false) {
+      return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
+    }
+
     if (amount == null) {
       return new ResponseEntity<>("You must specify an amount of money to send.", HttpStatus.BAD_REQUEST);
     }
@@ -147,7 +157,7 @@ public class TransferService {
     return new ResponseEntity<>("Successfully transferred $" + amount + " from account #" + fromAccountId + " to #" + toAccountId, HttpStatus.OK);
   }
 
-  public ResponseEntity<List<Transfer>> getTransfersByAccountAndTime(Long accId, int year, int month){
+  public ResponseEntity<List<Transfer>> getTransfersByAccountAndTime(Long accId, int year, int month, String sessionToken){
     List<Transfer> transfers;
     try{
       transfers = transferRepository.getUsingAccountIdAndMonth(accId, year, month);

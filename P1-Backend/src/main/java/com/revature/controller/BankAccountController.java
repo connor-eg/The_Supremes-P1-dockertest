@@ -19,21 +19,21 @@ import com.revature.service.BankAccountService;
 @RestController
 @RequestMapping("api/v1/bankaccount")
 public class BankAccountController {
+
     private BankAccountService bankAccountService;
 
-    @Autowired
     public BankAccountController(BankAccountService bankAccountService) {
         super();
         this.bankAccountService = bankAccountService;
     }
 
     @GetMapping("my")
-    public ResponseEntity<List<BankAccount>> getBankAccountsByUserId(@RequestHeader Long userId){
-        return bankAccountService.getBankAccountsByUserId(userId);
+    public ResponseEntity<List<BankAccount>> getBankAccountsByUserId(@RequestHeader Long userId, @RequestHeader String sessionToken){
+        return bankAccountService.getBankAccountsByUserId(userId, sessionToken);
     }
 
     @PostMapping
-    public ResponseEntity<String> createNewBankAccount(@RequestBody BankAccount ba){
-        return bankAccountService.createNewBankAccount(ba);
+    public ResponseEntity<String> createNewBankAccount(@RequestBody BankAccount ba, @RequestHeader String sessionToken){
+        return bankAccountService.createNewBankAccount(ba, sessionToken);
     }
 }
