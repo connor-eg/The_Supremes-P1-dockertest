@@ -56,7 +56,7 @@ public class AuthService {
 
         if (sessionToken != null && userAccountId != null) {
             try {
-                userAccount = userAccountRepository.findByUserAccountId(userAccountId);
+                userAccount = userAccountRepository.findByUserAccountIdAndSessionToken(userAccountId, sessionToken);
             } catch (Exception e) {
                 return false;
             }
