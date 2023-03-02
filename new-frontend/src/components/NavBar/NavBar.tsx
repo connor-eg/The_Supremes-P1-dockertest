@@ -15,7 +15,6 @@ function NavBar() {
         <Link to="/">Home</Link>
         <Link to="/">Home</Link>
         <Link to="/">Home</Link>
-        <Link to="/">Home</Link>
     </div>
 }
 
