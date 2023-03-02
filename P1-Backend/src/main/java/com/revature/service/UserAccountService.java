@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -108,31 +107,27 @@ public class UserAccountService {
                 String jsonFieldName = jsonFields.next();
                 String s = updateForm.get(jsonFieldName).asText();
 
-                if (s.isBlank()) {
-                    continue;
-                } else {
-                    switch (jsonFieldName) {
-                        case "newUsername":
-                            updateUser.setUsername(s);
-                            break;
-                        case "newPassword":
-                            updateUser.setPassword(s);
-                            break;
-                        case "newEmail":
-                            updateUser.setEmail(s);
-                            break;
-                        case "newFirstName":
-                            updateUser.setFirstName(s);
-                            break;
-                        case "newLastName":
-                            updateUser.setLastName(s);
-                            break;
-                        case "newPhoneNumber":
-                            updateUser.setPhoneNumber(s);
-                            break;
-                        default:
-                            break;
-                    }
+                switch (jsonFieldName) {
+                    case "newUsername":
+                        updateUser.setUsername(s);
+                        break;
+                    case "newPassword":
+                        updateUser.setPassword(s);
+                        break;
+                    case "newEmail":
+                        updateUser.setEmail(s);
+                        break;
+                    case "newFirstName":
+                        updateUser.setFirstName(s);
+                        break;
+                    case "newLastName":
+                        updateUser.setLastName(s);
+                        break;
+                    case "newPhoneNumber":
+                        updateUser.setPhoneNumber(s);
+                        break;
+                    default:
+                        break;
                 }
             }
             try {
