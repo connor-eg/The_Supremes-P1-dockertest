@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import { UserAccount } from "../../models/UserAccount";
+import "../../shared/general.css";
 
 function Register(){
     const [formUserName, setFormUserName] = useState("");
     const [formPassword, setFormPassword] = useState("");
     const [feedback, setFeedback] = useState("Please fill out the form above to register an account.");
 
-    return <div>
+    return <div className="padded-left">
         <h2>Register here.</h2>
         <form onSubmit={onSubmit}>
             <label>Username</label>
@@ -21,11 +22,15 @@ function Register(){
     </div>
 
     function onUserNameChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormUserName(event.target.value);
+        if(event.target.value != null){
+            setFormUserName(event.target.value);
+        }
     }
 
     function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>){
-        setFormPassword(event.target.value);
+        if(event.target.value != null){
+            setFormPassword(event.target.value);
+        }
     }
 
     function onSubmit(){
@@ -42,7 +47,7 @@ function Register(){
         })
         .catch(exception => {
             setFeedback("Something went wrong while registering your account.");
-        })
+        });
     }
 }
 export default Register;

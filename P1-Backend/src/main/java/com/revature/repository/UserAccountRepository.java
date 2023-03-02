@@ -10,7 +10,7 @@ import com.revature.model.UserAccount;
 
 @Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
-    
+
     @Query("SELECT s FROM UserAccount s WHERE s.username = ?1")
     Optional<UserAccount> findByUsername(String username);
 
@@ -21,6 +21,9 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
     Optional<UserAccount> findByUsernameAndSessionToken(String username, String sessionToken);
 
     @Query("SELECT s from UserAccount s WHERE s.sessionToken = ?1")
-    Optional<UserAccount> findbySessionToken(String sessionToken);
+    Optional<UserAccount> findBySessionToken(String sessionToken);
+
+    @Query("SELECT s from UserAccount s WHERE s.userAccountId = ?1 AND s.sessionToken = ?2")
+    Optional<UserAccount> findByUserAccountIdAndSessionToken(Long userAccountId, String sessionToken);
 
 }

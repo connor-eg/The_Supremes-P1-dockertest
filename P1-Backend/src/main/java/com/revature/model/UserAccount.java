@@ -27,7 +27,6 @@ public class UserAccount {
     private String firstName;
     private String lastName;
     private String middleName;
-    private LocalDate dob;
     private String email;
     private String phoneNumber;
 
@@ -45,7 +44,7 @@ public class UserAccount {
     }
 
     public UserAccount(String username, String password, String sessionToken, String firstName,
-            String lastName, String middleName, LocalDate dob, String email, String phoneNumber) 
+            String lastName, String middleName, String email, String phoneNumber) 
     {
         this.username = username;
         this.password = password;
@@ -53,13 +52,12 @@ public class UserAccount {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.dob = dob;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
     public UserAccount(long userAccountId, String username, String password, String sessionToken, String firstName,
-            String lastName, String middleName, LocalDate dob, String email, String phoneNumber) 
+            String lastName, String middleName, String email, String phoneNumber) 
     {
         this.userAccountId = userAccountId;
         this.username = username;
@@ -68,7 +66,6 @@ public class UserAccount {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.dob = dob;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -128,14 +125,6 @@ public class UserAccount {
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
     
     public String getEmail() {
         return email;
@@ -156,7 +145,7 @@ public class UserAccount {
     public String generateToken() {
         int low = 48;
         int high = 122;
-        int strLen = 16;
+        int strLen = 32;
         Random random = new Random();
 
         String newToken = random.ints(low, high + 1).filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
@@ -177,7 +166,6 @@ public class UserAccount {
                 + ", firstName: " + firstName 
                 + ", lastName: " + lastName
                 + ", middleName: " + middleName 
-                + ", dob: " + dob 
                 + ", email: " + email 
                 + ", phoneNumber: " + phoneNumber + "]";
         return s;

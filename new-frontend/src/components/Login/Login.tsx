@@ -1,11 +1,19 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UserAccount } from "../../models/UserAccount";
+import "../../shared/general.css";
+import { useAppDispatch } from "../../shared/Redux/hook";
+import { setSessionToken } from "../../slices/SessionTokenSlice";
+import { setUserId } from "../../slices/UserIdSlice";
 
 function Login(){
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
+    const [formUserName, setFormUserName] = useState("");
+    const [formPassword, setFormPassword] = useState("");
+    const [feedback, setFeedback] = useState("Please fill out the form above to log in to your account. You may also choose not to.");
+    const dispatch = useAppDispatch();
 
-    return <div>
+    return <div className="padded-left">
         <h2>Log in or do not.</h2>
         <form onSubmit={onSubmit}>
             <label>Username</label>
@@ -15,20 +23,43 @@ function Login(){
         </form>
         <button onClick={onSubmit}>log in</button>
         <Link to={"/"}><button>do not</button></Link>
+        <p>{feedback}</p>
     </div>
 
     function onUserNameChange(event: React.ChangeEvent<HTMLInputElement>){
-        setUserName(event.target.value);
+        if(event.target.value != null){
+            setFormUserName(event.target.value);
+        }
     }
 
     function onPasswordChange(event: React.ChangeEvent<HTMLInputElement>){
-        setPassword(event.target.value);
+        if(event.target.value != null){
+            setFormPassword(event.target.value);
+        }
     }
 
     function onSubmit(){
-        console.log(`[${userName}]:[${password}]`);
-
-        
+        console.log(`[${formUserName}]:[${formPassword}]`);
+        //It's axiosing time
+        var loginUser: UserAccount = {
+            username: formUserName,
+            password: formPassword
+        }
+        axios.post<UserAccount>("http://localhost:8080/home/login", loginUser)
+        .then(response => {
+            console.log(response.data);
+            if(response.data.sessionToken == null || response.data.userAccountId == null){
+                setFeedback("Something went wrong while logging in to your account.");
+                return;
+            }
+            setFeedback("Successfully logged in.");
+            dispatch(setSessionToken({token: response.data.sessionToken}));
+            dispatch(setUserId({userId: response.data.userAccountId}));
+        })
+        .catch(exception => {
+            setFeedback("Something went wrong while logging in to your account.");
+            console.log(exception);
+        });
     }
 }
 

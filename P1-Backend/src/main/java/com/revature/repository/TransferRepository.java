@@ -17,6 +17,7 @@ public interface TransferRepository extends JpaRepository<Transfer, Long> {
 
     List<Transfer> findByAccountId(Long accountId);
 
+    
     //Similar to above function, but also takes a second parameter to further refine your search to only the deposits/withdraws for a given account.
     List<Transfer> findByAccountIdAndIsDeposit(Long traAccountId, Boolean isDeposit);
 

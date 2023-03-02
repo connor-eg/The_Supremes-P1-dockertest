@@ -7,6 +7,11 @@ function NavBar() {
         <Link to="/">Home</Link>
         <Link to="/Register">Register</Link>
         <Link to="/Login">Log in</Link>
+        <Link to="/Logout">Log out</Link>
+        <Link to="/UpdateProfile">Update Profile</Link>
+        <Link to="/NewBankAccount">Create a new bank account</Link>
+        <Link to="/">Home</Link>
+        <Link to="/">Home</Link>
         <Link to="/">Home</Link>
         <Link to="/">Home</Link>
         <Link to="/">Home</Link>

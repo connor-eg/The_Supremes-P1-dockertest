@@ -25,50 +25,47 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    //TODO: Delete this function, it should only be implemented for testing
-    @GetMapping(path = "all")
-	public List<Transfer> getTransfers(){
-		return transferService.getTransfers();
-	}
-
     @PostMapping
-    public ResponseEntity<String> postTransfer(@RequestBody Transfer t){
+    public ResponseEntity<String> postTransfer(@RequestBody Transfer t, @RequestHeader String sessionToken){
         //Ensuring that time/id values passed in have no effect
+        
         Transfer transfer = new Transfer(t.getAccountId(), t.getAmount(), t.getIsDeposit(), t.getDescription());
-        return transferService.addNewTransfer(transfer);
+        return transferService.addNewTransfer(transfer, sessionToken);
     }
 
     @GetMapping(path = "my")
-    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestHeader Long accountid){
-        return transferService.getTransfersByAccountId(accountid);
+    public ResponseEntity<List<Transfer>> getTransfersByAccountId(@RequestHeader Long accountid, @RequestHeader String sessionToken){
+        return transferService.getTransfersByAccountId(accountid, sessionToken);
     }
 
     @GetMapping(path = "my/withdraws")
-    public ResponseEntity<List<Transfer>> getWithdraws(@RequestHeader Long accountid){
-        return transferService.getTransfersByAccountId(accountid, false);
+    public ResponseEntity<List<Transfer>> getWithdraws(@RequestHeader Long accountid, @RequestHeader String sessionToken){
+        return transferService.getTransfersByAccountId(accountid, false, sessionToken);
     }
 
     @GetMapping(path = "my/deposits")
-    public ResponseEntity<List<Transfer>> getDeposits(@RequestHeader Long accountid){
-        return transferService.getTransfersByAccountId(accountid, true);
+    public ResponseEntity<List<Transfer>> getDeposits(@RequestHeader Long accountid, @RequestHeader String sessionToken){
+        return transferService.getTransfersByAccountId(accountid, true, sessionToken);
     }
 
     @GetMapping(path= "my/bytime")
     public ResponseEntity<List<Transfer>> getTransfersByAccountYearMonth(
         @RequestHeader Long accountId,
         @RequestHeader int year,
-        @RequestHeader int month
+        @RequestHeader int month,
+        @RequestHeader String sessionToken
     ){
-        return transferService.getTransfersByAccountAndTime(accountId, year, month);
+        return transferService.getTransfersByAccountAndTime(accountId, year, month, sessionToken);
     }
 
     @PostMapping(path= "a2a")
     public ResponseEntity<String> sendMoneyBetweenTwoAccounts(
         @RequestHeader Long fromAccount,
         @RequestHeader Long toAccount,
-        @RequestHeader BigDecimal amount
+        @RequestHeader BigDecimal amount,
+        @RequestHeader String sessionToken
     ){
-        return transferService.sendMoneyBetweenTwoAccounts(fromAccount, toAccount, amount);
+        return transferService.sendMoneyBetweenTwoAccounts(fromAccount, toAccount, amount, sessionToken);
     }
 
 }

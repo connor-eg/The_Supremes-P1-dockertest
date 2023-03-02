@@ -19,9 +19,11 @@ import com.revature.repository.UserAccountRepository;
 public class UserAccountService {
 
     private final UserAccountRepository userAccountRepository;
+    public final AuthService authService;
 
-    public UserAccountService(UserAccountRepository userAccountRepository) {
+    public UserAccountService(UserAccountRepository userAccountRepository, AuthService authService) {
         this.userAccountRepository = userAccountRepository;
+        this.authService = authService;
     }
 
     public ArrayList<UserAccount> getUserAccounts() {
@@ -78,13 +80,20 @@ public class UserAccountService {
 
     }
 
-    public ResponseEntity<UserAccount> update(ObjectNode updateForm) {
+    public ResponseEntity<UserAccount> update(ObjectNode updateForm, String sessionToken) {
         Optional<UserAccount> optionalUserAccount;
         UserAccount updateUser;
 
+        if (sessionToken == null || sessionToken.isEmpty() || updateForm.get("userAccountId").asText() == null || updateForm.get("userAccountId").asText().isEmpty()) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        if (authService.verifyUser(sessionToken, updateForm.get("userAccountId").asLong()) == false) {
+            return ResponseEntity.status(500).body(null);
+        }
+
         try {
-            optionalUserAccount = userAccountRepository.findByUsernameAndPassword(
-                    updateForm.get("currUsername").asText(), updateForm.get("currPassword").asText());
+            optionalUserAccount = userAccountRepository.findBySessionToken(sessionToken);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
@@ -98,31 +107,27 @@ public class UserAccountService {
                 String jsonFieldName = jsonFields.next();
                 String s = updateForm.get(jsonFieldName).asText();
 
-                if (s.isBlank()) {
-                    continue;
-                } else {
-                    switch (jsonFieldName) {
-                        case "newUsername":
-                            updateUser.setUsername(s);
-                            break;
-                        case "newPassword":
-                            updateUser.setPassword(s);
-                            break;
-                        case "newEmail":
-                            updateUser.setEmail(s);
-                            break;
-                        case "newFirstName":
-                            updateUser.setFirstName(s);
-                            break;
-                        case "newLastName":
-                            updateUser.setLastName(s);
-                            break;
-                        case "newPhoneNumber":
-                            updateUser.setPhoneNumber(s);
-                            break;
-                        default:
-                            break;
-                    }
+                switch (jsonFieldName) {
+                    case "newUsername":
+                        updateUser.setUsername(s);
+                        break;
+                    case "newPassword":
+                        updateUser.setPassword(s);
+                        break;
+                    case "newEmail":
+                        updateUser.setEmail(s);
+                        break;
+                    case "newFirstName":
+                        updateUser.setFirstName(s);
+                        break;
+                    case "newLastName":
+                        updateUser.setLastName(s);
+                        break;
+                    case "newPhoneNumber":
+                        updateUser.setPhoneNumber(s);
+                        break;
+                    default:
+                        break;
                 }
             }
             try {
@@ -136,17 +141,19 @@ public class UserAccountService {
         return ResponseEntity.status(200).body(updateUser);
     }
     
-    public boolean checkToken(ObjectNode authForm) {
+    public ResponseEntity<UserAccount> getUserInfo(String sessionToken) {
         try {
-             Optional<UserAccount> user = userAccountRepository.findByUsernameAndSessionToken(
-                     authForm.get("username").asText(), authForm.get("token").asText());
-             if (user.isPresent()) {
-                 return true;
-             }
-         } catch (Exception e) {
-         }
-         return false;
+            Optional<UserAccount> user = userAccountRepository.findBySessionToken(sessionToken);
+            if (user.isPresent()) {
+                UserAccount userInfo = user.get();
+                return ResponseEntity.status(200).body(userInfo);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+        return ResponseEntity.status(404).body(null);
     }
+
 }
 
 
