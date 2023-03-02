@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,24 +27,25 @@ public class UserAccountController {
         this.userAccountService = userAccountService;
     }
 
-    @GetMapping("/users")
-    public ArrayList<UserAccount> getUsersAccounts() {
-        return userAccountService.getUserAccounts();
-    }
-
     @PostMapping("/register")
     public ResponseEntity<UserAccount> registerNewUserAccount(@RequestBody UserAccount userAccount) {
-     return userAccountService.register(userAccount);
+      return userAccountService.register(userAccount);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserAccount> login(@RequestBody ObjectNode loginForm) throws Exception {
-      return userAccountService.login(loginForm.get("username").asText(), loginForm.get("password").asText());
+    public ResponseEntity<UserAccount> login(@RequestBody UserAccount userAccount) throws Exception {
+      return userAccountService.login(userAccount.getUsername(), userAccount.getPassword());
     }
 
     @PutMapping("/update")
-    public ResponseEntity<UserAccount> updateUserAccount(@RequestBody ObjectNode updateForm) {
-      return userAccountService.update(updateForm);
+    public ResponseEntity<UserAccount> updateUserAccount(@RequestBody ObjectNode updateForm,
+        @RequestHeader String sessionToken) {
+      return userAccountService.update(updateForm, sessionToken);
+    }
+    
+    @GetMapping("/getUserIdFromSessionToken")
+    public ResponseEntity<UserAccount> getUser(@RequestHeader String sessionToken) {
+      return userAccountService.getUserInfo(sessionToken);
     }
     
 }

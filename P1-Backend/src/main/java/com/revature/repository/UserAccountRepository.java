@@ -21,6 +21,9 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
     Optional<UserAccount> findByUsernameAndSessionToken(String username, String sessionToken);
 
     @Query("SELECT s from UserAccount s WHERE s.sessionToken = ?1")
-    Optional<UserAccount> findbySessionToken(String sessionToken);
+    Optional<UserAccount> findBySessionToken(String sessionToken);
+
+    @Query("SELECT s from UserAccount s WHERE s.userAccountId = ?1")
+    Optional<UserAccount> findByUserAccountId(Long userAccountId);
 
 }
