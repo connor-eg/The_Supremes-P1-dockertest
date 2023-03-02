@@ -1,9 +1,7 @@
 package com.revature.model;
 
-import java.time.LocalDate;
 import java.util.Random;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +24,6 @@ public class UserAccount {
     private String sessionToken;
     private String firstName;
     private String lastName;
-    private String middleName;
     private String email;
     private String phoneNumber;
 
@@ -44,20 +41,19 @@ public class UserAccount {
     }
 
     public UserAccount(String username, String password, String sessionToken, String firstName,
-            String lastName, String middleName, String email, String phoneNumber) 
+            String lastName, String email, String phoneNumber) 
     {
         this.username = username;
         this.password = password;
         this.sessionToken = sessionToken;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.middleName = middleName;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
     public UserAccount(long userAccountId, String username, String password, String sessionToken, String firstName,
-            String lastName, String middleName, String email, String phoneNumber) 
+            String lastName, String email, String phoneNumber) 
     {
         this.userAccountId = userAccountId;
         this.username = username;
@@ -65,7 +61,6 @@ public class UserAccount {
         this.sessionToken = sessionToken;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.middleName = middleName;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -117,15 +112,7 @@ public class UserAccount {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-    
+        
     public String getEmail() {
         return email;
     }
@@ -156,7 +143,6 @@ public class UserAccount {
         return newToken;
     }
 
-
     @Override
     public String toString() {
         String s = "UserAccount[userAccountId: " + userAccountId
@@ -165,7 +151,6 @@ public class UserAccount {
                 + ", sessionToken " + sessionToken 
                 + ", firstName: " + firstName 
                 + ", lastName: " + lastName
-                + ", middleName: " + middleName 
                 + ", email: " + email 
                 + ", phoneNumber: " + phoneNumber + "]";
         return s;

@@ -20,7 +20,6 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, 
     generator = "bankaccount_sequence")
     private long id;
-    //TODO: Make this a reference to the user accounts table
     private long userId;
     private AccType accType;
     @Column(insertable = false, updatable = false, columnDefinition = "numeric(19,2) default 0")
