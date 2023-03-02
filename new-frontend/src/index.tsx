@@ -12,6 +12,9 @@ import Register from './components/Register/Register';
 import Logout from './components/Logout/Logout';
 import UpdateProfile from './components/UpdateProfile/UpdateProfile';
 import NewBankAccount from './components/NewBankAccount/NewBankAccount';
+import MyBankAccounts from './components/MyBankAccounts/MyBankAccounts';
+import MyTransfers from './components/MyTransfers/MyTransfers';
+import TransferRequest from './components/TransferRequest/TransferRequest';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -28,6 +31,9 @@ root.render(
           <Route path="/Logout" element={<Logout />}/>
           <Route path="/UpdateProfile" element={<UpdateProfile />}/>
           <Route path="/NewBankAccount" element={<NewBankAccount />} />
+          <Route path="/MyBankAccounts" element={<MyBankAccounts />} />
+          <Route path="/MyTransfers" element={<MyTransfers />} />
+          <Route path="/TransferRequest" element={<TransferRequest />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -84,7 +84,6 @@ public class TransferService {
     } catch (Exception e) {
       return ResponseEntity.status(500).body(null);
     }
-    if(body.isEmpty()) return ResponseEntity.status(404).body(body);
     return ResponseEntity.status(200).body(body);
   }
 
@@ -94,7 +93,6 @@ public class TransferService {
     }
 
     List<Transfer> body = transferRepository.findByAccountIdAndIsDeposit(accountid, isDeposit);
-    if(body.isEmpty()) return ResponseEntity.status(404).body(body);
     return ResponseEntity.status(200).body(body);
   }
 
@@ -165,7 +163,6 @@ public class TransferService {
       e.printStackTrace();
       return ResponseEntity.status(500).body(null);
     }
-    if(transfers.isEmpty()) return ResponseEntity.status(404).body(transfers);
     return ResponseEntity.status(200).body(transfers);
   }
 }
