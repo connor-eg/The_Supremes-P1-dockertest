@@ -2,11 +2,11 @@ import "../../shared/general.css"
 import { useAppSelector } from "../../shared/Redux/hook";
 import { selectSessionToken } from "../../slices/SessionTokenSlice";
 import "../../shared/general.css"
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BankAccount } from "../../models/BankAccount";
 import axios from "axios";
 import { SelectUserId } from "../../slices/UserIdSlice";
+import NotLoggedInBox from "../NavBar/NotLoggedInBox";
 
 function NewBankAccount(){
     const sessionTokenSelector = useAppSelector(selectSessionToken);
@@ -16,10 +16,7 @@ function NewBankAccount(){
     const [feedback, setFeedback] = useState("You can create a new bank account here.");
 
     if (sessionTokenSelector.token === '') {
-        return (<div className="padded-left">
-        <h2>This action requires that you are logged in.</h2>
-        <Link to="/Login">Click here to get to the login page</Link>
-        </div>)
+        return <NotLoggedInBox/>;
     } else {
         return <div className="padded-left"><h2>Create a new bank account here</h2>
         <form>

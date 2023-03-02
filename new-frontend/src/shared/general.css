@@ -1,3 +1,14 @@
 .padded-left {
     padding-left: 20px;
 }
+
+tr > * {
+    border: 1px solid;
+    padding: 5px;
+    text-align: center;
+}
+
+label {
+    padding-right: 4px;
+    padding-left: 4px;
+}

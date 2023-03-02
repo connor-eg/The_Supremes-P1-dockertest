@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { UserAccount } from "../../models/UserAccount";
 import "../../shared/general.css"
 import { useAppSelector } from "../../shared/Redux/hook";
 import { selectSessionToken } from "../../slices/SessionTokenSlice";
 import { SelectUserId } from "../../slices/UserIdSlice";
+import NotLoggedInBox from "../NavBar/NotLoggedInBox";
 
 function UpdateProfile() {
     const sessionTokenSelector = useAppSelector(selectSessionToken);
@@ -15,20 +15,16 @@ function UpdateProfile() {
     const [formPassword, setFormPassword] = useState("");
     const [formFirstName, setFormFirstName] = useState("");
     const [formLastName, setFormLastName] = useState("");
-    const [formMiddleName, setFormMiddleName] = useState("");
     const [formEmail, setFormEmail] = useState("");
     const [formPhoneNumber, setFormPhoneNumber] = useState("");
     const [feedback, setFeedback] = useState("You can use the above form to update your information");
 
     if(sessionTokenSelector.token === '') {
-        return (<div className="padded-left">
-        <h2>This action requires that you are logged in.</h2>
-        <Link to="/Login">Click here to get to the login page</Link>
-        </div>)
+        return <NotLoggedInBox />;
     } else {
         return (<div className="padded-left">
             <h2>Update your information here</h2>
-            <form onSubmit={onSubmit}>
+            <form>
                 <label>New username</label>
                 <input type="text" onChange={onUserNameChange} /> <br />
                 <label>New password</label>
