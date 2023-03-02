@@ -37,7 +37,6 @@ public class BankAccountService{
         } catch (Exception e){
             return ResponseEntity.status(500).body(null);
         }
-        if(accounts.isEmpty()) return ResponseEntity.status(404).body(accounts);
         return ResponseEntity.status(200).body(accounts);
     }
 
