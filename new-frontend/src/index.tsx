@@ -9,6 +9,9 @@ import { store } from './shared/Redux/store';
 import { Provider } from 'react-redux';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Logout from './components/Logout/Logout';
+import UpdateProfile from './components/UpdateProfile/UpdateProfile';
+import NewBankAccount from './components/NewBankAccount/NewBankAccount';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,6 +25,9 @@ root.render(
           <Route path="/" element={<App />}/> 
           <Route path="/Login" element={<Login />}/> 
           <Route path="/Register" element={<Register />}/> 
+          <Route path="/Logout" element={<Logout />}/>
+          <Route path="/UpdateProfile" element={<UpdateProfile />}/>
+          <Route path="/NewBankAccount" element={<NewBankAccount />} />
         </Routes>
       </BrowserRouter>
     </Provider>
