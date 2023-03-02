@@ -5,7 +5,6 @@ export interface UserAccount {
     sessionToken?: string,
     firstName?: string,
     lastName?: string,
-    middleName?: string,
     email?: string,
     phoneNumber?: string,
 }

@@ -5,9 +5,11 @@ import { UserAccount } from "../../models/UserAccount";
 import "../../shared/general.css"
 import { useAppSelector } from "../../shared/Redux/hook";
 import { selectSessionToken } from "../../slices/SessionTokenSlice";
+import { SelectUserId } from "../../slices/UserIdSlice";
 
 function UpdateProfile() {
     const sessionTokenSelector = useAppSelector(selectSessionToken);
+    const userIdSelector = useAppSelector(SelectUserId);
 
     const [formUserName, setFormUserName] = useState("");
     const [formPassword, setFormPassword] = useState("");
@@ -35,8 +37,6 @@ function UpdateProfile() {
                 <input type="text" onChange={onFirstNameChange} /> <br />
                 <label>Your last name</label>
                 <input type="text" onChange={onLastNameChange} /> <br />
-                <label>New middle name</label>
-                <input type="text" onChange={onMiddleNameChange} /> <br />
                 <label>Current email address</label>
                 <input type="email" onChange={onEmailChange} /> <br />
                 <label>Your phone number</label>
@@ -71,12 +71,6 @@ function UpdateProfile() {
         }
     }
 
-    function onMiddleNameChange(event: React.ChangeEvent<HTMLInputElement>){
-        if(event.target.value != null){
-            setFormMiddleName(event.target.value);
-        }
-    }
-
     function onEmailChange(event: React.ChangeEvent<HTMLInputElement>){
         if(event.target.value != null){
             setFormEmail(event.target.value);
@@ -91,18 +85,17 @@ function UpdateProfile() {
 
     function onSubmit(){
         console.log(`[${formUserName}]:[${formPassword}]`);
-        var updatedUser: UserAccount = {
-            username: formUserName !== "" ? formUserName : undefined,
-            password: formPassword !== "" ? formPassword : undefined,
-            firstName:  formFirstName !== "" ? formFirstName : undefined,
-            lastName:  formLastName !== "" ? formLastName : undefined,
-            middleName:  formMiddleName !== "" ? formMiddleName : undefined,
-            email:  formEmail !== "" ? formEmail : undefined,
-            phoneNumber:  formPhoneNumber !== "" ? formPhoneNumber : undefined
-        }
         //It's axiosing time
         axios.put<UserAccount>("http://localhost:8080/home/update", 
-            updatedUser, 
+            {
+                userAccountId: userIdSelector.userId,
+                newUsername: formUserName !== "" ? formUserName : undefined,
+                newPassword: formPassword !== "" ? formPassword : undefined,
+                newFirstName:  formFirstName !== "" ? formFirstName : undefined,
+                newLastName:  formLastName !== "" ? formLastName : undefined,
+                newEmail:  formEmail !== "" ? formEmail : undefined,
+                newPhoneNumber:  formPhoneNumber !== "" ? formPhoneNumber : undefined 
+            }, 
             {
                 headers: {
                     "sessionToken": `${sessionTokenSelector.token}`
