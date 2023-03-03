@@ -46,6 +46,7 @@ $ npm start
 ```
 
 Before continuing, save the following system environment variables and restart your IDE after:
+
 spring.url = <your-datasource-url>
 spring.username = <your-database-username>
 spring.password = <your-database-password>
