@@ -25,14 +25,14 @@ Note: The front-end was completely overhauled this week due to unforeseen compli
 ## Technologies
 Project is created with:
 * Backend: 
-* - Java version: 1.8
-* - Spring Boot version: 2.7.9
-* - Maven Version 4.0.0
-* - PostgreSQL Version 15.1
+- Java version: 1.8
+- Spring Boot version: 2.7.9
+- Maven Version 4.0.0
+- PostgreSQL Version 15.1
 * Frontend:
-* - React Version 18.2.0
-* - TypeScript Version 4.9.3
-* - Vite Version 4.1.0
+- React Version 18.2.0
+- TypeScript Version 4.9.3
+- Vite Version 4.1.0
 	
 ## Setup
 Before running our application, you will need to have these installed: Maven, Node.JS, Java 8
@@ -46,9 +46,9 @@ $ npm start
 ```
 
 Before continuing, save the following system environment variables and restart your IDE after:
--spring.url = <your-datasource-url>
--spring.username = <your-database-username>
--spring.password = <your-database-password>
+spring.url = <your-datasource-url>
+spring.username = <your-database-username>
+spring.password = <your-database-password>
 
 Next, proceed to run the back-end of this project:
 
