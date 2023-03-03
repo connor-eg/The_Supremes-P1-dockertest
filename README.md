@@ -2,7 +2,7 @@
 
 ## Authors
 * Jonathan Demaree
-* Connor Edward Garcia
+* Connor Garcia
 
 ## Table of contents
 * [General info](#general-info)
