@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { UserAccount } from "../../models/UserAccount";
+import baseURL from "../../shared/config";
 import "../../shared/general.css";
 import { useAppDispatch } from "../../shared/Redux/hook";
 import { setSessionToken } from "../../slices/SessionTokenSlice";
@@ -45,7 +46,7 @@ function Login(){
             username: formUserName,
             password: formPassword
         }
-        axios.post<UserAccount>("http://localhost:8080/home/login", loginUser)
+        axios.post<UserAccount>(baseURL + "/home/login", loginUser)
         .then(response => {
             console.log(response.data);
             if(response.data.sessionToken == null || response.data.userAccountId == null){

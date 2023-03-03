@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { UserAccount } from "../../models/UserAccount";
+import baseURL from "../../shared/config";
 import "../../shared/general.css"
 import { useAppSelector } from "../../shared/Redux/hook";
 import { selectSessionToken } from "../../slices/SessionTokenSlice";
@@ -82,7 +83,7 @@ function UpdateProfile() {
     function onSubmit(){
         console.log(`[${formUserName}]:[${formPassword}]`);
         //It's axiosing time
-        axios.put<UserAccount>("http://localhost:8080/home/update", 
+        axios.put<UserAccount>(baseURL + "/home/update", 
             {
                 userAccountId: userIdSelector.userId,
                 newUsername: formUserName !== "" ? formUserName : undefined,

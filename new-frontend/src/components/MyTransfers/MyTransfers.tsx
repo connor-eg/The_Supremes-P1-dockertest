@@ -7,6 +7,7 @@ import { useState } from "react";
 import NotLoggedInBox from "../NavBar/NotLoggedInBox";
 import { Transfer } from "../../models/Transfer";
 import { useLocation } from "react-router-dom";
+import baseURL from "../../shared/config";
 
 
 function MyTransfers(){
@@ -74,7 +75,7 @@ function MyTransfers(){
     }
 
     function getAllTransfers(){
-        axios.get<Transfer[]>("http://localhost:8080/api/v1/transfer/my", {
+        axios.get<Transfer[]>(baseURL + "/api/v1/transfer/my", {
             headers: {
                 "accountid": bankAccId,
                 "sessionToken": `${sessionTokenSelector.token}`
@@ -93,7 +94,7 @@ function MyTransfers(){
     }
 
     function getTransfersByMonth(){
-        axios.get<Transfer[]>("http://localhost:8080/api/v1/transfer/my/bytime", {
+        axios.get<Transfer[]>(baseURL + "/api/v1/transfer/my/bytime", {
             headers: {
                 "accountid": bankAccId,
                 "sessionToken": `${sessionTokenSelector.token}`,
@@ -114,7 +115,7 @@ function MyTransfers(){
     }
 
     function getDeposits(getDeposits: boolean){
-        axios.get<Transfer[]>('http://localhost:8080/api/v1/transfer/my/deposits', {
+        axios.get<Transfer[]>(baseURL + '/api/v1/transfer/my/deposits', {
             headers: {
                 "accountid": bankAccId,
                 "sessionToken": `${sessionTokenSelector.token}`
@@ -133,7 +134,7 @@ function MyTransfers(){
     }
 
     function getWithdraws(getDeposits: boolean){
-        axios.get<Transfer[]>('http://localhost:8080/api/v1/transfer/my/withdraws', {
+        axios.get<Transfer[]>(baseURL + '/api/v1/transfer/my/withdraws', {
             headers: {
                 "accountid": bankAccId,
                 "sessionToken": `${sessionTokenSelector.token}`

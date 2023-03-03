@@ -7,6 +7,7 @@ import { BankAccount } from "../../models/BankAccount";
 import NotLoggedInBox from "../NavBar/NotLoggedInBox";
 import { SelectUserId } from "../../slices/UserIdSlice";
 import { Link } from "react-router-dom";
+import baseURL from "../../shared/config";
 
 
 function MyBankAccounts(){
@@ -19,7 +20,7 @@ function MyBankAccounts(){
     if (sessionTokenSelector.token === '') {
         return <NotLoggedInBox />;
     } else {
-        if(!runOnce){axios.get<BankAccount[]>("http://localhost:8080/api/v1/bankaccount/my", {
+        if(!runOnce){axios.get<BankAccount[]>(baseURL + "/api/v1/bankaccount/my", {
             headers: {
                 "sessionToken": `${sessionTokenSelector.token}`,
                 "userId": userIdSelector.userId

@@ -7,6 +7,7 @@ import { BankAccount } from "../../models/BankAccount";
 import axios from "axios";
 import { SelectUserId } from "../../slices/UserIdSlice";
 import NotLoggedInBox from "../NavBar/NotLoggedInBox";
+import baseURL from "../../shared/config";
 
 function NewBankAccount(){
     const sessionTokenSelector = useAppSelector(selectSessionToken);
@@ -36,7 +37,7 @@ function NewBankAccount(){
         console.log(`[${newBankAccount.accType}]`);
         
         //It's axiosing time
-        axios.post<BankAccount>("http://localhost:8080/api/v1/bankaccount", 
+        axios.post<BankAccount>(baseURL + "/api/v1/bankaccount", 
             newBankAccount, 
             {
                 headers: {

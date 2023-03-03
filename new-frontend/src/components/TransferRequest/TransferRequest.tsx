@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Transfer } from "../../models/Transfer";
+import baseURL from "../../shared/config";
 import "../../shared/general.css"
 import { useAppSelector } from "../../shared/Redux/hook";
 import { selectSessionToken } from "../../slices/SessionTokenSlice";
@@ -81,7 +82,7 @@ function TransferRequest(){
         }
         
         //It's axiosing time
-        axios.post<string>("http://localhost:8080/api/v1/transfer", 
+        axios.post<string>(baseURL + "/api/v1/transfer", 
             newTransfer, 
             {
                 headers: {
@@ -99,7 +100,7 @@ function TransferRequest(){
 
     function sendMoney(){
         //It's axiosing time
-        axios.post<string>("http://localhost:8080/api/v1/transfer/a2a", 
+        axios.post<string>(baseURL + "/api/v1/transfer/a2a", 
             {},
             {
                 headers: {

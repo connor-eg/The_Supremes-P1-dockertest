@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { UserAccount } from "../../models/UserAccount";
+import baseURL from "../../shared/config";
 import "../../shared/general.css";
 
 function Register(){
@@ -40,7 +41,7 @@ function Register(){
             username: formUserName,
             password: formPassword
         }
-        axios.post("http://localhost:8080/home/register", newUser)
+        axios.post(baseURL + "/home/register", newUser)
         .then(response => {
             console.log(response);
             setFeedback("Successfully registered a new account.");
