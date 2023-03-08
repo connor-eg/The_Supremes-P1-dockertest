@@ -2,9 +2,11 @@
 
 ## What is this project?
 This project is a simple mock banking application. It is a combination of a database (PostgreSQL), backend (built with Spring Boot) and Frontend (made using React JS). The idea of the end goal for this project is as follows:
+
 * New users can register for and log in to user accounts.
 * Users with accounts can create bank accounts, which hold some amount of money
 * Bank accounts can have transactions associated with them (we called these transfers), which is how money is deposited into and withdrawn from them.
+
 In addition to this simple functionality, there are also more operations made available to the end user. These include the ability to view transfers associated with a bank account based on certain criteria (such as only viewing deposits, or transfers made in a specific month), and the ability to update their information (changing their password or additional information like the email address associated with their user account).
 
 ## Authors
