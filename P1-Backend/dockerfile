@@ -1,0 +1,6 @@
+#Using a base image with the JRE we need
+FROM openjdk:8-jre-alpine
+
+COPY target/*.jar p1_backend.jar
+
+ENTRYPOINT [ "java", "-jar", "p1_backend.jar" ]
